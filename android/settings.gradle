@@ -1,0 +1,3 @@
+rootProject.name = 'mallapp'
+
+include ':app'
