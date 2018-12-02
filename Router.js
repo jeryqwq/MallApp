@@ -7,10 +7,11 @@ import Category from "./components/views/Category"
 import ShoppingCart from './components/views/ShoppingCart'
 import Person from "./components/views/Person"
 import ProductDesc from './components/views/ProductDesc'
-
+import Address from './components/views/Address'
+import AddAddress from './components/views/AddAddress'
 const App = createStackNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: HomeScreen
     },
     Profile: {
         screen: ProfileScreen
@@ -32,6 +33,12 @@ const App = createStackNavigator({
     },
     ProductDesc:{
         screen:ProductDesc
+    },
+    address:{
+        screen:Address
+    },
+    AddAddress:{
+        screen:AddAddress
     }
 
 },

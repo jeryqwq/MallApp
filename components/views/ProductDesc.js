@@ -74,8 +74,8 @@ getProductDesc(){
                 <View style={{ backgroundColor:"rgba(255,69,0,"+that.state.opactiy+")"}}>
                 <View style={style.titleView}>
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 0, animated: true});this.setState({curIndexTitle:1})}} style={that.state.curIndexTitle===1?style.actTitle:style.title}>宝贝</Text>
-                    <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 520, animated: true});this.setState({curIndexTitle:2})}} style={that.state.curIndexTitle===2?style.actTitle:style.title}>评论</Text>
-                    <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 600, animated: true});this.setState({curIndexTitle:3})}} style={that.state.curIndexTitle===3?style.actTitle:style.title}>详情</Text>
+                    <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 600, animated: true});this.setState({curIndexTitle:2})}} style={that.state.curIndexTitle===2?style.actTitle:style.title}>评论</Text>
+                    <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 1200, animated: true});this.setState({curIndexTitle:3})}} style={that.state.curIndexTitle===3?style.actTitle:style.title}>详情</Text>
                 </View>
             </View>
             )
@@ -130,15 +130,16 @@ render(){
                     this.setState({
                         curIndexTitle:1
                     })
-                }else if(event.nativeEvent.contentOffset.y<=800){
+                }else if(event.nativeEvent.contentOffset.y<=1000){
                     this.setState({
                         curIndexTitle:2
                     })
-                }else if(event.nativeEvent.contentOffset.y<=1000){
-                    this.setState({
-                        curIndexTitle:3
-                    })
                 }
+            }
+        else if(event.nativeEvent.contentOffset.y<=1200){
+                this.setState({
+                    curIndexTitle:3
+                })
             }
         }}
         >

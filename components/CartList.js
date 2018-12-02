@@ -214,7 +214,7 @@ borderColor:'#c9c9c9',borderStyle:'solid',borderTopWidth:1
 },
 wrap:{width:width,backgroundColor:'#ff6100'},
 bottomleft:{width:width*0.3,flexDirection:"row",alignItems:"center",height:50,marginLeft:width*0.05},
-whitewrap:{height:height*0.72,width:width*0.9,marginLeft:width*0.05,position:"relative",bottom:50,backgroundColor:'#EEECF4',borderRadius:15},
+whitewrap:{height:height*0.75,width:width*0.9,marginLeft:width*0.05,position:"relative",bottom:50,backgroundColor:'#EEECF4',borderRadius:15},
 title1:{color:'white',fontSize:23,marginTop:30,marginLeft:20,fontWeight:'700'},
 manage:{color:'white',fontSize:20,fontWeight:'400',position:'absolute',right:30,top:30},
 desc:{marginTop:10,marginLeft:20,color:'white',paddingBottom:70},

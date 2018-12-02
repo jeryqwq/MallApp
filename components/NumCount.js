@@ -39,7 +39,7 @@ render(){
             </TouchableOpacity>
             </View>
             <View style={{width:width*0.1,borderColor:'#D3D3D3',borderBottomWidth:1,borderTopWidth:1}}>
-            <TextInput style={{lineHeight:12,textAlign:'left',textDecorationLine:'underline line-through'}}  keyboardType='numeric' maxLength={4}  value={this.props.num.toString()} onChangeText={(num)=>{this.changeNumHandle(num)}}/></View>
+            <TextInput style={{lineHeight:12,textAlign:'left'}}  keyboardType='numeric' maxLength={4}  value={this.props.num.toString()} onChangeText={(num)=>{this.changeNumHandle(num)}}/></View>
             <View style={style.btn}>
             <TouchableOpacity activeOpacity={0.5} onPress={()=>{this.addnum()}} >
             <View style={{width:30,height:30,backgroundColor:'#F5F5F5',borderStyle:'solid',borderColor:'#D3D3D3',borderWidth:1,alignItems:'center',justifyContent:'center'}}><Text style={{fontSize:22,color:'#8B8B83'}}>+</Text></View>

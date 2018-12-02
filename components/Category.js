@@ -23,14 +23,11 @@ export default class App extends Component {
       <ScrollView style={styles.container}
       onScroll = {(event)=>{{
         if(event.nativeEvent.contentOffset.y<=100){
-            this.setState({
-                opacity:event.nativeEvent.contentOffset.y/100
-            }) //垂直滚动距离 
+
         }
       }}}
       >
-        <View style={{backgroundColor:"red",height:height*2,}}>
-        </View>
+
         </ScrollView>
         </View>
 
@@ -40,7 +37,6 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-      height:4000,
-    width:'100%',
+
   }
 });

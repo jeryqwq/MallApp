@@ -13,8 +13,8 @@ const UserMenuInfos = {
             path: ''
         },
         {
-            title: '我的收获地址',
-            path: ''
+            title: '我的收货地址',
+            path: 'address'
         }
     ]
 }

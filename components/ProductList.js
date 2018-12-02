@@ -153,6 +153,7 @@ function IsLoading(){
             <View style={style.wrap}>
             <TextInput
                 style={style.textinput}
+                placeholderTextColor="gray" 
                 placeholder="请输入关键词"
                 onChangeText={(text)=>{this.searchKeyword(text)}}
             />
@@ -163,20 +164,19 @@ function IsLoading(){
         <Text style={this.state.orederIndex===2?style.active:{color:'black'}} onPress={()=>{this.handleOrder(2)}}>价格</Text>
         <Text style={this.state.orederIndex===3?style.active:{color:'black'}} onPress={()=>{this.handleOrder(3)}}>存货</Text>
         </View>
-            
             <FlatList
             ref='flatlist'
-                refreshing={this.state.loaded}
+            refreshing={this.state.loaded}
             onRefresh={()=>{this.refresh()}}
-             ListEmptyComponent={emptyComponent("很抱歉，您的数据走丢拉")}
-                contentContainerStyle={style.flatList}
-                data={this.state.data}
-                // keyExtractor={(item, index) => index}
-                renderItem={RenderItem}
-                onEndReachedThreshold={0.3}
-                onEndReached={()=>{setTimeout(()=>{
-                    this.nextPage()
-                })}}
+            ListEmptyComponent={emptyComponent("很抱歉，您的数据走丢拉")}
+            contentContainerStyle={style.flatList}
+            data={this.state.data}
+            // keyExtractor={(item, index) => index}
+            renderItem={RenderItem}
+            onEndReachedThreshold={0.3}
+            onEndReached={()=>{setTimeout(()=>{
+                this.nextPage()
+            })}}
             />  
             <IsLoading/>
         </View>
