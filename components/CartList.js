@@ -3,6 +3,7 @@ import {Text,View,FlatList,StyleSheet,Dimensions,TouchableOpacity,Image} from 'r
 import emptyComponent from './contains/EmptyComonent'
 import config from './../config/uriconfig'
 import NumCount from './NumCount'
+import Navigation from './../store/navigation'
 // import CartRenderItem from './contains/CartRenderItem';
 import cartAjax  from './../ajax/cartAjax';
 const {width,height} = Dimensions.get('window')
@@ -79,7 +80,10 @@ export default class Cartlist extends React.Component{
      IsDelOrCount(){
         if(this.state.cartStatus===false){
             return(
-                <TouchableOpacity activeOpacity={0.5} onPress={()=>{ }} >
+                <TouchableOpacity activeOpacity={0.5} onPress={()=>{
+                    const {navigate} =Navigation.getNavigation();
+                    navigate("PayCount");
+                 }} >
                 <View style={{alignItems:"center",justifyContent:'center',width:width*0.25,height:40,backgroundColor:'#ff6100',borderRadius:20}}>
                 <Text style={{color:'white',fontSize:17}}>结算</Text>
                 </View>

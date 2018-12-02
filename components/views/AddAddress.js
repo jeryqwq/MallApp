@@ -40,6 +40,7 @@ export default class AddADdress extends React.Component{
                 }}/>                
                 {this.MyInput('name',"收货人",1)}
                 {this.MyInput('phonenum',"手机号码",1)}
+                {this.MyInput('phonenum',"邮政编码",1)}
                 {this.MyInput('name',"所在地区",1)}
                 {this.MyInput('detail',"详细地址",3)}
                 <View style={{marginTop:20}}>

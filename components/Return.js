@@ -11,10 +11,10 @@ render(){
         navigate(path);
     }
     return(
-    <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:"center",backgroundColor:'#EAEAEA',height:50}}>
-        <Text onPress={()=>{ routerLink(this.props.returnPath)}} style={{marginLeft:20,fontSize:30,color:'gray'}}>{">".toString()}</Text>
-        <Text style={{fontSize:20}}>{this.props.title}</Text>
-        <Text onPress={()=>{this.props.returnDo()}} style={{fontSize:15,marginRight:10}}  >{this.props.subtitle}</Text>
+    <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:"center",backgroundColor:'#FF4500',height:50}}>
+        <Text onPress={()=>{ routerLink(this.props.returnPath)}} style={{marginLeft:20,fontSize:30,color:'white'}}>{">".toString()}</Text>
+        <Text style={{fontSize:20,color:"white"}}>{this.props.title}</Text>
+        <Text onPress={()=>{this.props.returnDo()}} style={{fontSize:15,marginRight:10,color:'white'}}  >{this.props.subtitle}</Text>
     </View>
     )
 }

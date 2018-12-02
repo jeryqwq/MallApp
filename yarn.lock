@@ -4866,7 +4866,7 @@ package-json@^2.3.1:
 
 package.json@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.yarnpkg.com/package.json/-/package.json-2.0.1.tgz#f886059d2a49ed076e64883695d73b2b46d21d6d"
+  resolved "http://registry.npm.taobao.org/package.json/download/package.json-2.0.1.tgz#f886059d2a49ed076e64883695d73b2b46d21d6d"
   integrity sha1-+IYFnSpJ7QduZIg2ldc7K0bSHW0=
   dependencies:
     git-package-json "^1.4.0"

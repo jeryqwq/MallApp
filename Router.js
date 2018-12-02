@@ -9,6 +9,7 @@ import Person from "./components/views/Person"
 import ProductDesc from './components/views/ProductDesc'
 import Address from './components/views/Address'
 import AddAddress from './components/views/AddAddress'
+import PayCount from './components/views/PayCount'
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -39,6 +40,9 @@ const App = createStackNavigator({
     },
     AddAddress:{
         screen:AddAddress
+    },
+    PayCount:{
+        screen:PayCount
     }
 
 },
