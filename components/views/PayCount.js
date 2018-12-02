@@ -54,6 +54,7 @@ export default class PayCount extends React.Component{
                 <ScrollView style={{height:height*0.71}}>
                 <ProductInfos/>
                 <ProductInfos/>
+                
                 </ScrollView>
 
                 <View style={{width:width,flexDirection:'row',height:50,alignItems:"center",justifyContent:'flex-end',backgroundColor:'white'}}>
