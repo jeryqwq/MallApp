@@ -9,7 +9,7 @@ class HomeScreen extends React.Component {
  
     handle=()=>{
       const { navigate } = this.props.navigation;
-        // ToastExampl.show("123",500);
+  
         navigate('UserLogin')
     }
     componentDidMount(){

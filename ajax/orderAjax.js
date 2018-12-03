@@ -73,8 +73,11 @@ return fetch(apiFront+"list.do",{
 }
 
 module.exports={
-
-
-
-
+    list,
+    orderDetail,
+    getOrderCartProduct,
+    queryPayStatus,
+    pay,
+    create,
+    cancel
 }

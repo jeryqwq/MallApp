@@ -1,40 +1,73 @@
 import React from "react";
 import {View,Text,Dimensions,StyleSheet,ScrollView} from "react-native"
 import Return from './../Return'
-
+import AddressAjax from './../../ajax/addressAjax'
 const {width,height} = Dimensions.get('window')
 
 export default class Address extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            data:{list:[]},
+        }
     }
-    
+    componentDidMount(){
+        this.getData(1,20);
+    }
+    getData(pageNum,pageSize){
+        AddressAjax.list(pageNum,pageSize).then((res)=>{
+            let resobj=eval("("+res._bodyInit+")")
+            if(resobj.status===0){
+                this.setState({
+                    data:resobj.data
+                })
+            }
+        })
+    }
+    AddressItem(){
+       function isDefalut(val){
+           if(val==1){
+            return (
+                <Text style={style.inlineText}>默认</Text>
+               )
+           }else{
+               return null;
+           }
+       }
+if(this.state!==undefined){
+    return(
+        this.state.data.list.map((item,index) => (
+            <View style={style.wrap} key={index}>
+            <View style={style.partLeft}>
+                <View style={style.nameWrap}>
+                <Text style={{color:'white',fontSize:20}}>{item.receiverProvince}</Text>
+                </View>
+            </View>
+            <View style={{width:width*0.75}}>
+                <View style={style.line1}>
+                    <Text style={{fontSize:18,color:'black'}}>{item.receiverName}</Text>
+                    <Text style={{color:"gray",marginLeft:20}}>{item.receiverPhone}</Text>
+                </View>
+                <View style={style.line2}>
+                <Text style={{lineHeight:18,width:width*0.65}}> {isDefalut(item.receiverCity)} {item.receiverAddress}</Text>
+                </View>
+            </View>
+            <Text style={style.line3}>编辑</Text>
+        </View>
+        ))
+    )
+}else{
+    return <Text>组件初始化中</Text>;
+}
+          
+        
+    }
     render(){
         routerLink=function(path){
             const {navigate} =Navigation.getNavigation();
             navigate(path);
         }
-        AddressItem=function(){
-            return(
-                <View style={style.wrap}>
-                    <View style={style.partLeft}>
-                        <View style={style.nameWrap}>
-                        <Text style={{color:'white',fontSize:20}}>陈杰</Text>
-                        </View>
-                    </View>
-                    <View style={{width:width*0.75}}>
-                        <View style={style.line1}>
-                            <Text style={{fontSize:18,color:'black'}}>陈杰</Text>
-                            <Text style={{color:"gray",marginLeft:20}}>13799418338</Text>
-                        </View>
-                        <View style={style.line2}>
-                        <Text style={{lineHeight:18,width:width*0.65}}><Text style={style.inlineText}>默认</Text>福建省福州市撒旦阿萨德阿萨德爱色打撒打撒打撒阿萨德阿萨德 求安慰多群无vqc七点起床清除去错误</Text>
-                        </View>
-                    </View>
-                    <Text style={style.line3}>编辑</Text>
-                </View>
-            )
-        }
+
         return(
             <View>
                 <Return  returnPath="Person"
@@ -43,11 +76,8 @@ export default class Address extends React.Component{
                      routerLink("AddAddress");
                  }}/>
                     <ScrollView>
-                        <AddressItem/>
-                        <AddressItem/>
-                        <AddressItem/>
-                        <AddressItem/>
-                        <AddressItem/>
+                      {this.AddressItem()}
+                   
                     </ScrollView>
             </View>
         )
