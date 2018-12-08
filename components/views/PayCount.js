@@ -38,7 +38,7 @@ export default class PayCount extends React.Component{
                     <Text style={{color:'#141414',fontSize:15}}>{item.productName}</Text>
                     <Text style={{color:"#CD0000",fontSize:13,borderStyle:'solid',borderWidth:1,borderRadius:4,borderColor:'#CD0000',width:width*0.28,textAlign:"center"}}>免运费，支持运费险</Text>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                    <Text style={{color:'red'}}>￥ {item.currentUnitPrice} </Text>
+                    <Text style={{color:'red'}}>￥{item.currentUnitPrice} </Text>
                     <Text>*{item.quantity}</Text>
                     </View>
                     <Text>合计:{item.totalPrice}</Text>

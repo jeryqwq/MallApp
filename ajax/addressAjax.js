@@ -23,7 +23,7 @@ return fetch(apiFront+'del.do?shippingId='+shippingId,{
 update=(id,receiverName,receiverPhone,receiverZip,receiverProvince,receiverAddress,receiverDistrict)=>{
     return fetch(apiFront+'update.do?id='+id+"&receiverName="+receiverName+"&receiverPhone="+receiverPhone+
     "&receiverZip="+receiverZip+"&receiverProvince="+receiverProvince+"&receiverAddress="+receiverAddress+
-    "&receiverDistrict="+receiverDistrict,{
+    "&receiverCity="+receiverDistrict,{
      method: "POST",
      mode : 'cors',
      credentials: 'include',
@@ -36,9 +36,17 @@ list=(pageNum,pageSize)=>{
         credentials: 'include',
     })
 }
+select=(addressId)=>{
+    return fetch(apiFront+'/select.do?shippingId='+addressId,{
+        method: "POST",
+        mode : 'cors',
+        credentials: 'include',
+    })
+}
 module.exports={
     list,
     update,
     delAddress,
-    addAddress
+    addAddress,
+    select
 }

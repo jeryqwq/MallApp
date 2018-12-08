@@ -1,5 +1,5 @@
 import React from "react";
-import {View,Text,TextInput,Dimensions,Image,StyleSheet,Switch} from "react-native"
+import {View,Text,TextInput,Dimensions,Alert,StyleSheet,Switch} from "react-native"
 import Return from './../Return'
 import AddressAjax from './../../ajax/addressAjax'
 import ToastExampl from './../../native_methods/Toast'
@@ -13,29 +13,94 @@ export default class AddADdress extends React.Component{
             receiverPhone:'',
             receiverProvince:"",//地址标签
             receiverAddress:'',//地址详情
-            receiverCity:false,//是否默认
-            receiverZip:'000000',//邮编
+            receiverCity:0,//是否默认
+            receiverZip:'',//邮编\
+            id:0,
         }
     }
-
-    addaddress(){
-        AddressAjax.addAddress(this.state.receiverName,this.state.receiverPhone,this.state.receiverZip
-            ,this.state.receiverProvince,this.state.receiverAddress,this.state.receiverCity).then((res)=>{
-                    let resobj=eval("("+res._bodyInit+")");
+    componentDidMount(){
+        if(global.addressId!=undefined){
+            console.warn(global.addressId)
+            AddressAjax.select(global.addressId).then((result) => {
+                let resobj=eval("("+result._bodyInit+")");
+                if(resobj.status===0){
+                   this.setState({
+                       id:resobj.data.id,
+                    receiverName:resobj.data.receiverName,
+                    receiverPhone:resobj.data.receiverPhone,
+                    receiverProvince:resobj.data.receiverProvince,//地址标签
+                    receiverAddress:resobj.data.receiverAddress,//地址详情
+                    receiverCity:resobj.data.receiverCity,//是否默认
+                    receiverZip:resobj.data.receiverZip,//邮编
+                   })
+                }
+            }).catch((err) => {
+                
+            });
+        }
+    }
+    componentWillUnmount(){
+        global.addressId=undefined;
+    }
+    delAddress(){
+        AddressAjax.delAddress(global.addressId).then((result) => {
+            let resobj=eval("("+result._bodyInit+")");
+            console.warn(resobj)
                     if(resobj.status===0){
-                        ToastExampl.show("新增地址成功",500);
+                        ToastExampl.show("删除成功!!!",500);
+                        global.addressId=undefined;
                         this.setState({
                             receiverName:'',
                             receiverPhone:'',
                             receiverProvince:"",//地址标签
                             receiverAddress:'',//地址详情
                             receiverCity:0,//是否默认
-                            receiverZip:'000000',//邮编
+                            receiverZip:'',//邮编
+                        })
+                    }
+        })
+    }
+    addaddress(){
+        let self=this;
+       for(let i in this.state){
+        if(this.state[i]===""){
+            ToastExampl.show("请完整填写表单",500);
+            return;
+            }
+       }
+       if(global.addressId==undefined){
+        AddressAjax.addAddress(this.state.receiverName,this.state.receiverPhone,this.state.receiverZip
+            ,this.state.receiverProvince,this.state.receiverAddress,this.state.receiverCity).then((res)=>{
+                    let resobj=eval("("+res._bodyInit+")");
+                    if(resobj.status===0){
+                        ToastExampl.show("新增地址成功",500);
+                        self.setState({
+                            receiverName:'',
+                            receiverPhone:'',
+                            receiverProvince:"",//地址标签
+                            receiverAddress:'',//地址详情
+                            receiverCity:0,//是否默认
+                            receiverZip:'',//邮编
                         })
                     }else{
                         ToastExampl.show("发生了一个异常，请稍后重试",500);
                     }
                 })
+       }else{
+        AddressAjax.update(this.state.id,this.state.receiverName,this.state.receiverPhone,this.state.receiverZip
+            ,this.state.receiverProvince,this.state.receiverAddress,this.state.receiverCity).then((res) => {
+                let resobj=eval("("+res._bodyInit+")");
+                if(resobj.status==1){
+                    ToastExampl.show("修改地址成功",500);
+                }else{
+                    ToastExampl.show("发生了一个异常，请稍后重试",500);
+                }
+            }).catch((err) => {
+                
+            });
+
+       }
+
     }
     MyInput(key,holder,lins){
         return(
@@ -44,6 +109,7 @@ export default class AddADdress extends React.Component{
             style={{width:width*0.8}}
             multiline={true}
             numberOfLines={lins}
+            value={this.state[key]}
             onChangeText={(val)=>{
                 this.setState({
                     [key]:val
@@ -72,6 +138,17 @@ export default class AddADdress extends React.Component{
                 <Text style={{marginLeft:20}}>是否设为默认</Text>
                 <Switch value={this.state.receiverCity==0?false:true} onValueChange={(val)=>{this.setState({receiverCity:val==true?1:0})}}/>
                 </View>
+                <View style={{marginTop:20,height:50,backgroundColor:'white',alignItems:"center",justifyContent:"center"}}><Text style={{color:'red',fontSize:20}} onPress={()=>{
+                    Alert.alert(
+                        '提示信息',
+                        '您确定要删除该地址信息吗？',
+                        [
+                          {text: '取消'},
+                          {text: '确定', onPress: () => this.delAddress()},
+                        ],
+                        { cancelable: true }
+                      )
+                }}>删除此地址信息</Text></View>
                 </View>
             </View>
         )

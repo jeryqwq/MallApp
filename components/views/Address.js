@@ -2,7 +2,9 @@ import React from "react";
 import {View,Text,Dimensions,StyleSheet,ScrollView} from "react-native"
 import Return from './../Return'
 import AddressAjax from './../../ajax/addressAjax'
+import Navigation from "./../../store/navigation"
 const {width,height} = Dimensions.get('window')
+const {navigate} =Navigation.getNavigation();
 
 export default class Address extends React.Component{
     constructor(props){
@@ -52,7 +54,10 @@ if(this.state!==undefined){
                 <Text style={{lineHeight:18,width:width*0.65}}> {isDefalut(item.receiverCity)} {item.receiverAddress}</Text>
                 </View>
             </View>
-            <Text style={style.line3}>编辑</Text>
+            <Text style={style.line3} onPress={()=>{
+                 global.addressId=item.id;
+                 navigate("AddAddress");
+            }}>编辑</Text>
         </View>
         ))
     )
@@ -64,10 +69,8 @@ if(this.state!==undefined){
     }
     render(){
         routerLink=function(path){
-            const {navigate} =Navigation.getNavigation();
             navigate(path);
         }
-
         return(
             <View>
                 <Return  returnPath="Person"
