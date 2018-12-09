@@ -20,7 +20,6 @@ export default class AddADdress extends React.Component{
     }
     componentDidMount(){
         if(global.addressId!=undefined){
-            console.warn(global.addressId)
             AddressAjax.select(global.addressId).then((result) => {
                 let resobj=eval("("+result._bodyInit+")");
                 if(resobj.status===0){
@@ -45,7 +44,6 @@ export default class AddADdress extends React.Component{
     delAddress(){
         AddressAjax.delAddress(global.addressId).then((result) => {
             let resobj=eval("("+result._bodyInit+")");
-            console.warn(resobj)
                     if(resobj.status===0){
                         ToastExampl.show("删除成功!!!",500);
                         global.addressId=undefined;

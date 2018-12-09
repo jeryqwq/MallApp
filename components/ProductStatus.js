@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,Text,Image,Dimensions,StyleSheet} from "react-native";
 const {width,height} = Dimensions.get('window')
-
+import Navigation from './../store/navigation'
 export default class ProductStatus extends React.Component{
     constructor(){
         super();
@@ -14,7 +14,10 @@ export default class ProductStatus extends React.Component{
             <View style={{backgroundColor:'white',borderRadius:20,width:width*0.96,marginLeft:width*0.02,marginTop:10}}>
                 <View style={{height:height*0.05,flexDirection:'row',justifyContent:'space-between',alignItems:"center",borderBottomColor:'rgb(238, 238, 231)',borderBottomWidth:1,borderStyle:'solid'}}>
                     <Text style={{marginLeft:10,color:'black'}}>我的订单</Text>
-                    <Text style={{color:'#999999',marginRight:10}}>查看全部订单></Text>
+                    <Text style={{color:'#999999',marginRight:10}} onPress={()=>{
+                           const {navigate} =Navigation.getNavigation();
+                           navigate("OrderList");
+                    }}>查看全部订单></Text>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:"space-around",alignItems:"center",marginTop:15,paddingBottom:10}}>
                     <View>

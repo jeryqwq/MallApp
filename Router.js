@@ -10,6 +10,7 @@ import ProductDesc from './components/views/ProductDesc'
 import Address from './components/views/Address'
 import AddAddress from './components/views/AddAddress'
 import PayCount from './components/views/PayCount'
+import OrderList from "./components/views/OrderList"
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -43,6 +44,9 @@ const App = createStackNavigator({
     },
     PayCount:{
         screen:PayCount
+    },
+    OrderList:{
+        screen:OrderList
     }
 
 },

@@ -4,7 +4,6 @@ import Return from './../Return'
 import AddressAjax from './../../ajax/addressAjax'
 import Navigation from "./../../store/navigation"
 const {width,height} = Dimensions.get('window')
-const {navigate} =Navigation.getNavigation();
 
 export default class Address extends React.Component{
     constructor(props){
@@ -56,6 +55,7 @@ if(this.state!==undefined){
             </View>
             <Text style={style.line3} onPress={()=>{
                  global.addressId=item.id;
+                 const {navigate} =Navigation.getNavigation();
                  navigate("AddAddress");
             }}>编辑</Text>
         </View>
@@ -69,6 +69,7 @@ if(this.state!==undefined){
     }
     render(){
         routerLink=function(path){
+            const {navigate} =Navigation.getNavigation();
             navigate(path);
         }
         return(
