@@ -28,13 +28,10 @@ return fetch(apiFront+"/list.do", {
   })
 }
 getDetail=(productId)=>{
-    let paramsFrom=new FormData();
-    paramsFrom.append("productId",productId)
-    return fetch(apiFront+"/detail.do", {
+    return fetch(apiFront+"/detail.do?productId="+productId, {
         method: "POST",
         mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
         credentials: 'include',//允许存取cookie信息
-        body:paramsFrom
       })
 }
 insertComment=(productId,cContent,cStarts)=>{

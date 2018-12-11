@@ -19,7 +19,8 @@ export default class Cartlist extends React.Component{
     componentDidMount(){
         this.catchData();
     }
-    catchData(){
+    catchData(){           
+
         cartAjax.getCartList().then((res) => {
             let resobj=eval("("+res._bodyInit+")");
             if(resobj.status===0){

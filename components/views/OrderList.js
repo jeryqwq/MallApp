@@ -2,6 +2,7 @@ import React from 'react'
 import {View,Text,Image,StyleSheet,Dimensions,ScrollView} from 'react-native';
 import Return from './../Return'
 import OrderAjax from './../../ajax/orderAjax'
+import emptyComponent from './../contains/EmptyComonent'
 const {width,height} = Dimensions.get('window')
 
 export default class OrderList extends React.Component{
@@ -10,16 +11,40 @@ export default class OrderList extends React.Component{
         this.state={
             curIndex:0,
             pageSize:8,
-            pageNum:1
+            pageNum:1,
+            data:[]
         }
     }
     componentDidMount(){
+   this.getData();
+    }
+    getData(){
+        const self=this;
         OrderAjax.list(this.state.pageNum,this.state.pageSize).then((res) => {
             let resobj=eval("("+res._bodyInit+")");
-            console.warn(resobj);
+            if(resobj.status==0){
+                self.setState({
+                    data:resobj.data.list
+                },()=>{
+                    console.warn(this.state.data)
+                })
+            }
         }).catch((err) => {
             
         });
+    }
+    OrderItem(){
+        if(this.state!==undefined){
+            return (
+               this.state.data.map((item,index)=>(
+                   <Text>
+                     123123
+                   </Text>
+               ))
+            )
+        }else{
+            return emptyComponent("未获取到任何数据")
+        }
     }
     render(){
         return (
@@ -32,6 +57,7 @@ export default class OrderList extends React.Component{
                     <Text style={this.state.curIndex==3?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:3})}>待评价</Text>
                 </View>
                 <ScrollView>
+                {this.OrderItem()}
 
                 </ScrollView>
             </View>

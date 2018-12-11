@@ -43,10 +43,18 @@ select=(addressId)=>{
         credentials: 'include',
     })
 }
+getDefaultAddress=()=>{
+    return fetch(apiFront+'/defaultAddress.do',{
+        method: "POST",
+        mode : 'cors',
+        credentials: 'include'
+    })
+}
 module.exports={
     list,
     update,
     delAddress,
     addAddress,
-    select
+    select,
+    getDefaultAddress
 }

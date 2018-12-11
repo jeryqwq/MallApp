@@ -1,14 +1,10 @@
 import config from "../config/uriconfig"
 const apiFront=config.apiAddressFront+'/cart/';
 addCart=(productId,count)=>{
-    let parameters=new FormData();
-    parameters.append("productId",productId);
-    parameters.append("count",count);
-   return fetch(apiFront+'addCart.do',{
+   return fetch(apiFront+'addCart.do?productId='+productId+"&count"+count,{
     method: "POST",
     mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
     credentials: 'include',//允许存取cookie信息
-    body:parameters
    }) 
 }
 update=(productId,count)=>{
