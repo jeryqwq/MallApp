@@ -3,7 +3,7 @@ import {View,Text,TextInput,Dimensions,Alert,StyleSheet,Switch} from "react-nati
 import Return from './../Return'
 import AddressAjax from './../../ajax/addressAjax'
 import ToastExampl from './../../native_methods/Toast'
-const {width,height} = Dimensions.get('window')
+import MyInput from './../contains/MyInput'
 
 export default class AddADdress extends React.Component{
     constructor(props){
@@ -14,7 +14,7 @@ export default class AddADdress extends React.Component{
             receiverProvince:"",//地址标签
             receiverAddress:'',//地址详情
             receiverCity:0,//是否默认
-            receiverZip:'',//邮编\
+            receiverZip:'',//邮编
             id:0,
         }
     }
@@ -24,7 +24,7 @@ export default class AddADdress extends React.Component{
                 let resobj=eval("("+result._bodyInit+")");
                 if(resobj.status===0){
                    this.setState({
-                       id:resobj.data.id,
+                    id:resobj.data.id,
                     receiverName:resobj.data.receiverName,
                     receiverPhone:resobj.data.receiverPhone,
                     receiverProvince:resobj.data.receiverProvince,//地址标签
@@ -33,8 +33,6 @@ export default class AddADdress extends React.Component{
                     receiverZip:resobj.data.receiverZip,//邮编
                    })
                 }
-            }).catch((err) => {
-                
             });
         }
     }
@@ -54,8 +52,8 @@ export default class AddADdress extends React.Component{
                             receiverAddress:'',//地址详情
                             receiverCity:0,//是否默认
                             receiverZip:'',//邮编
-                        })
-                    }
+                })
+            }
         })
     }
     addaddress(){
@@ -100,24 +98,9 @@ export default class AddADdress extends React.Component{
        }
 
     }
-    MyInput(key,holder,lins){
-        return(
-        <View style={style.wrap}>
-            <TextInput placeholder={holder} placeholderTextColor="gray" 
-            style={{width:width*0.8}}
-            multiline={true}
-            numberOfLines={lins}
-            value={this.state[key]}
-            onChangeText={(val)=>{
-                this.setState({
-                    [key]:val
-                })
-            }}
-            />
-            <View style={{width:width*0.2}}>
-            </View>
-        </View>
-        )
+    MyInputWrap(that,key,holder,lins){
+        return MyInput(that,key,holder,lins)
+
     }
     render(){
         return(
@@ -126,12 +109,12 @@ export default class AddADdress extends React.Component{
                 subtitle="保存" returnDo={()=>{
                     this.addaddress();
                 }}/>                
-                {this.MyInput('receiverName',"收货人",1)}
-                {this.MyInput('receiverPhone',"手机号码",1)}
-                {this.MyInput('receiverZip',"邮政编码",1)}
-                {this.MyInput('receiverAddress',"详细地址",3)}
+                {this.MyInputWrap(this,'receiverName',"收货人",1)}
+                {this.MyInputWrap(this,'receiverPhone',"手机号码",1)}
+                {this.MyInputWrap(this,'receiverZip',"邮政编码",1)}
+                {this.MyInputWrap(this,'receiverAddress',"详细地址",3)}
                 <View style={{marginTop:20}}>
-                {this.MyInput('receiverProvince',"地址标签，方便记住",1)}
+                {this.MyInputWrap(this,'receiverProvince',"地址标签，方便记住",1)}
                 <View style={{flexDirection:"row",height:50,backgroundColor:"white",alignItems:"center",justifyContent:'space-between'}}>
                 <Text style={{marginLeft:20}}>是否设为默认</Text>
                 <Switch value={this.state.receiverCity==0?false:true} onValueChange={(val)=>{this.setState({receiverCity:val==true?1:0})}}/>
