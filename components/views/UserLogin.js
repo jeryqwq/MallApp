@@ -69,7 +69,7 @@ onFocus={()=>{this.setState({password:''})}}
 <View style={{marginBottom:10,flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
     <Text style={style.register}>注册</Text>
 <Text style={style.findPwd} onPress={()=>{
-     navigate('FindPwd', { name: 'FindPwd' })
+     navigate('UpdatePwd', { name: 'UpdatePwd' })
 }}>忘记密码？找回密码</Text></View>
 <Button style={style.btn} 
         title="登录"

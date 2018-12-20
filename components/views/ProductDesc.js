@@ -1,6 +1,6 @@
 import React from 'react';
 import {View,Text,FlatList,StyleSheet,Dimensions
-,ImageBackground,WebView,ScrollView,Button,TouchableOpacity } from "react-native"
+,ImageBackground,WebView,ScrollView,TouchableOpacity,Animated } from "react-native"
 import ProductAjax from './../../ajax/productAjax'
 import NumCount from './../NumCount'
 import config from './../../config/uriconfig'
@@ -17,11 +17,19 @@ constructor(props){
         height:500,
         num:1,
         curIndexTitle:1,
-        opactiy:0
+        opactiy:0,
+        fadeAnim: new Animated.Value(0),
     }
 }
 componentDidMount(){
     this.getProductDesc();
+    Animated.timing(                  // 随时间变化而执行动画
+        this.state.fadeAnim,            // 动画中的变量值
+        {
+          toValue: 1,                   // 透明度最终变为1，即完全不透明
+          duration: 10000,              // 让动画持续一段时间
+        }
+      ).start();   
 }
 componentWillUnmount(){
     clearInterval(this.state.interval);
@@ -69,15 +77,18 @@ getProductDesc(){
     }
     isShowTitle(){
         const that=this;
-        if(that.state.opactiy>0){
+        if(that.state.fadeAnim>0){
             return (
-                <View style={{ backgroundColor:"rgba(255,69,0,"+that.state.opactiy+")"}}>
+                <Animated.View   style={{
+                    opacity: this.state.fadeAnim, 
+                    backgroundColor:'red'        // 将透明度指定为动画变量值
+                  }}>
                 <View style={style.titleView}>
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 0, animated: true});this.setState({curIndexTitle:1})}} style={that.state.curIndexTitle===1?style.actTitle:style.title}>宝贝</Text>
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 600, animated: true});this.setState({curIndexTitle:2})}} style={that.state.curIndexTitle===2?style.actTitle:style.title}>评论</Text>
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 1200, animated: true});this.setState({curIndexTitle:3})}} style={that.state.curIndexTitle===3?style.actTitle:style.title}>详情</Text>
                 </View>
-            </View>
+            </Animated.View  >
             )
         }else{
 
@@ -124,7 +135,7 @@ render(){
         onScroll = {(event)=>{
             if(event.nativeEvent.contentOffset.y<=1000&&event.nativeEvent.contentOffset.y>=0){
                 this.setState({
-                    opactiy:event.nativeEvent.contentOffset.y/1000
+                    fadeAnim:event.nativeEvent.contentOffset.y/1000
                 }) //垂直滚动距离 
                 if(event.nativeEvent.contentOffset.y<=500){
                     this.setState({
@@ -189,7 +200,7 @@ render(){
 }
 }
 let style=StyleSheet.create({
-    title:{color:'black',paddingLeft:10,paddingRight:10},
+    title:{color:'white',paddingLeft:10,paddingRight:10},
     actTitle:{color:'yellow',borderStyle:'solid',borderBottomColor:'yellow',borderBottomWidth:1,marginLeft:10,marginRight:10},
     titleView:{flexDirection:"row",height:height*0.04,width:width,justifyContent:"center",alignItems:'center'},
     fontBuy:{color:'white',fontSize:16},

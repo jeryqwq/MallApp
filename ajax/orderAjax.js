@@ -68,8 +68,6 @@ return fetch(apiFront+"list.do",{
     credentials:'include',
     body:params
 })
-
-
 }
 
 module.exports={

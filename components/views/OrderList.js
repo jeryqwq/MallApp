@@ -13,7 +13,8 @@ export default class OrderList extends React.Component{
             curIndex:0,
             pageSize:8,
             pageNum:1,
-            data:[]
+            data:[],
+            
         }
     }
     componentDidMount(){

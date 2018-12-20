@@ -2,7 +2,6 @@ import {createStackNavigator } from 'react-navigation';
 import HomeScreen from './components/views/Home '
 import ProfileScreen from './components/ProfileScreen'
 import UserLogin from "./components/views/UserLogin"
-import FindPwd from "./components/views/FindPwd"
 import Category from "./components/views/Category"
 import ShoppingCart from './components/views/ShoppingCart'
 import Person from "./components/views/Person"
@@ -22,9 +21,6 @@ const App = createStackNavigator({
     },
     UserLogin:{
         screen:UserLogin
-    },
-    FindPwd:{
-        screen:FindPwd
     },
     Category:{
         screen:Category
