@@ -1,5 +1,5 @@
 # MallApp
-## 基于ReactNative 的跨平台HybirdAPP商城开发，包括支付，webview组件内与Javascript的交互，显示PC端后台上传的富文本样式，FlatList组件的高性能渲染
+## 基于ReactNative 的跨平台HybirdAPP商城开发，包括支付，webview组件内与Javascript的交互，显示PC端后台上传的富文本样式，FlatList组件的高性能渲染,react高阶组件，没有使用react-redux，模块以及global函数全局传值
 ### 后台项目在本帐号ImoccMallofJava
 ```
 运行前请确认android环境和SDK等配置完成
