@@ -17,7 +17,7 @@ export default class PersonItemCard extends React.Component{
         
         function SubCards(){
                    return subInfos.map((item,index)=>
-                   <TouchableOpacity  activeOpacity={0.5} onPress={()=>{that.routerLink(item.path)}}>
+                   <TouchableOpacity  key={index} activeOpacity={0.5} onPress={()=>{that.routerLink(item.path)}}>
                         <View style={style.item} key={index}>
                             <Text >{item.title}</Text>
                             <Text style={{fontSize:25,color:'#d7d7d7'}}>></Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,Image,Dimensions,StyleSheet} from "react-native";
+import {View,Text,Image,Dimensions,StyleSheet,TouchableOpacity} from "react-native";
 const {width,height} = Dimensions.get('window')
 import Navigation from './../store/navigation'
 export default class ProductStatus extends React.Component{
@@ -8,6 +8,10 @@ export default class ProductStatus extends React.Component{
         this.state={
 
         }
+    }
+    toList(){
+        const {navigate} =Navigation.getNavigation();
+        navigate("OrderList");
     }
     render(){
         return(
@@ -20,7 +24,7 @@ export default class ProductStatus extends React.Component{
                     }}>查看全部订单></Text>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:"space-around",alignItems:"center",marginTop:15,paddingBottom:10}}>
-                    <View>
+                    <TouchableOpacity onPress={()=>{global.curIndex=0;this.toList()}}>
                          <View style={style.numwrap}>
                             <Text style={{color:'red'}}>1</Text>
                         </View>   
@@ -31,9 +35,9 @@ export default class ProductStatus extends React.Component{
                             />
                             <Text style={{color:'#666666'}}>待付款</Text>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     {/* 分割 */}
-                <View>
+                <TouchableOpacity onPress={()=>{global.curIndex=10;this.toList()}}>
                         <View style={style.numwrap}>
                             <Text style={{color:'red'}}>1</Text>
                         </View>    
@@ -44,9 +48,9 @@ export default class ProductStatus extends React.Component{
                         />
                             <Text style={{color:'#666666'}}>待发货</Text>
                         </View>
-                </View>
+                </TouchableOpacity>
                     {/* 分割 */}
-             <View>
+             <TouchableOpacity onPress={()=>{global.curIndex=30;this.toList()}}>
                         <View style={style.numwrap}>
                             <Text style={{color:'red'}}>3</Text>
                         </View>       
@@ -57,9 +61,9 @@ export default class ProductStatus extends React.Component{
                     />
                     <Text style={{color:'#666666'}}>待收获</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
 
-             <View>
+             <TouchableOpacity onPress={()=>{global.curIndex=50;this.toList()}}>
                         <View style={style.numwrap}>
                             <Text style={{color:'red'}}>5</Text>
                         </View> 
@@ -70,7 +74,7 @@ export default class ProductStatus extends React.Component{
                     />
                     <Text style={{color:'#666666'}}>待评价</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
                 </View>
         </View>
         )

@@ -58,6 +58,5 @@ const App = createStackNavigator({
     navigationOptions: {
       gesturesEnabled: false,
     },
-
 })
 export default App;

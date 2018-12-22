@@ -9,7 +9,6 @@ class HomeScreen extends React.Component {
  
     handle=()=>{
       const { navigate } = this.props.navigation;
-  
         navigate('UserLogin')
     }
     componentDidMount(){

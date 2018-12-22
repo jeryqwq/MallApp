@@ -1,9 +1,16 @@
 import React from "react"
 import {View,FlatList,Text,TextInput,StyleSheet,Dimensions,TouchableOpacity,Image,Button} from 'react-native'
 import listAjax from './../ajax/productAjax';
-import RenderItem from './contains/RendItem'
+import CateRenderItem from './contains/CategoryRenderItem'
 import isLoad from './contains/IsLoading'
+import config from './../config/uriconfig'
 import emptyComponent from './contains/EmptyComonent'
+import CartAjax from './../ajax/cartAjax'
+import Navigation from './../store/navigation'
+const {width} = Dimensions.get('window')
+const cols = 2;
+const vMargin = 10;
+const cellWH = (width-2*vMargin-15)/cols;
 export default class ProductList extends  React.Component{
 constructor(props){
     super(props);
@@ -15,7 +22,8 @@ constructor(props){
         keyword:'',
         orderBy:'',
         flag:true,
-        orderIndex:1
+        orderIndex:1,
+        cssType:true
     }
 }
 componentDidMount(){
@@ -78,7 +86,6 @@ nextPage(){
                 pageNum:this.state.pageNum+1
             },()=>{
                 this.handleSearch();
-                // this.refs.flatlist.scrollToIndex({viewPosition: 0, index: 0});
             })
          }else{
              setTimeout(()=>{
@@ -141,11 +148,46 @@ refresh(){
         this.handleSearch();
     })
 }
+_keyExtractor = (item, index) => item.id;
 render(){
     const that= this;
 function IsLoading(){
     return(
         isLoad(that.state.loaded)
+    )
+}
+  RenderItem=({item})=>{
+    let img= item.mainImage.replace("ftp://127.0.0.1/",config.imgAddressFront)
+    addCart=(id)=>{
+        CartAjax.addCart(id,1).then((res) => {
+            const resobj=eval('('+res._bodyInit+")");
+            if(resobj.status===0){
+                ToastExampl.show("加入购物车成功",500);
+            }
+        })
+    }
+    return (
+        <View style={style.wrap1}  >
+        <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => {
+            global.productId=item.id;
+            const { navigate } =Navigation.getNavigation();
+            navigate('ProductDesc')
+        }}>
+        <Image
+         style={{ width:cellWH, height:200,resizeMode:"stretch",borderTopLeftRadius:20,borderTopRightRadius:20}}
+         source={{uri:img}}
+        />
+        <Text style={{overflow:'hidden',height:20,fontSize:13,lineHeight:20,color:'black'}}>{item.name}</Text>
+        <Text style={{overflow:'hidden',height:20,fontSize:10,lineHeight:10}}>{item.subtitle}</Text>
+        <View style={style.btom}>
+        <View style={{flexDirection:'row',alignItems:'flex-end'}}><Text style={{fontSize:18}}>￥</Text>
+        <Text style={{color:'red',fontSize:20}}>{item.price}</Text></View>
+        <View style={{width:'40%'}}><Button title="加入购物车" color='orange' onPress={()=>{addCart(item.id)}} /></View>
+        </View>
+        </TouchableOpacity>
+        </View>
     )
 }
     return(
@@ -163,6 +205,19 @@ function IsLoading(){
         <Text style={this.state.orderIndex===1?style.active:{color:'black'}} onPress={()=>{this.handleOrder(1)}}>默认</Text>
         <Text style={this.state.orderIndex===2?style.active:{color:'black'}} onPress={()=>{this.handleOrder(2)}}>价格</Text>
         <Text style={this.state.orderIndex===3?style.active:{color:'black'}} onPress={()=>{this.handleOrder(3)}}>存货</Text>
+        <TouchableOpacity  
+        activeOpacity={0.5}
+        onPress={()=>{
+             this.setState({
+                cssType:!this.state.cssType
+             })
+         }}>
+        <Image
+         style={{ width:width*0.05, height:width*0.05,resizeMode:"stretch"}}
+         source={require("./../imgs/切换.png")}
+       
+        />
+        </TouchableOpacity>
         </View>
             <FlatList
             ref='flatlist'
@@ -171,8 +226,8 @@ function IsLoading(){
             ListEmptyComponent={emptyComponent("很抱歉，您的数据走丢拉")}
             contentContainerStyle={style.flatList}
             data={this.state.data}
-            // keyExtractor={(item, index) => index}
-            renderItem={RenderItem}
+            keyExtractor={this._keyExtractor}
+            renderItem={this.state.cssType?RenderItem:CateRenderItem}
             onEndReachedThreshold={0.3}
             onEndReached={()=>{setTimeout(()=>{
                 this.nextPage()
@@ -191,9 +246,9 @@ wrap:{
     flexDirection:"row"
 },
 textinput:{backgroundColor:'white',width:'90%',height:40,borderRadius:10},
-flatList:{backgroundColor:'#EEECF4',width:'100%',flexDirection:"row",flexWrap:'wrap',alignItems:'center',justifyContent:"space-around",paddingBottom:180 },
+flatList:{backgroundColor:'#EEECF4',width:'100%',flexDirection:"row",flexWrap:'wrap',alignItems:'center',justifyContent:"space-around",paddingBottom:150 },
 order:{width:'100%',
-height:30,
+height:35,
 backgroundColor:'white',
 flexDirection:'row',
 justifyContent:"space-around",
@@ -205,5 +260,12 @@ active:{
     borderBottomWidth:2,
     borderStyle:'solid'
 },
-
+wrap1:{
+    width:cellWH,
+    height:280,
+    marginTop:10,
+    backgroundColor:'white',
+    borderRadius:10
+},
+btom:{width:'100%',flexDirection:"row",justifyContent:'space-between'}
 })

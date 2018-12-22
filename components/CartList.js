@@ -78,6 +78,7 @@ export default class Cartlist extends React.Component{
             console.warn(err)
         });
     }
+    _keyExtractor = (item, index) => item.id;
      IsDelOrCount(){
         if(this.state.cartStatus===false){
             return(
@@ -178,6 +179,7 @@ export default class Cartlist extends React.Component{
             ref='flatlist'
                 refreshing={this.state.loaded}
             // onRefresh={()=>{console.warn('refresh')}}
+            keyExtractor={this._keyExtractor}
              ListEmptyComponent={emptyComponent("很抱歉，您的购物车空空如也")}
                 contentContainerStyle={style.flatList}
                 data={this.state.data.cartProductVoList}
