@@ -2,7 +2,6 @@ import {createStackNavigator } from 'react-navigation';
 import HomeScreen from './components/views/Home '
 import ProfileScreen from './components/ProfileScreen'
 import UserLogin from "./components/views/UserLogin"
-import FindPwd from "./components/views/FindPwd"
 import Category from "./components/views/Category"
 import ShoppingCart from './components/views/ShoppingCart'
 import Person from "./components/views/Person"
@@ -11,6 +10,8 @@ import Address from './components/views/Address'
 import AddAddress from './components/views/AddAddress'
 import PayCount from './components/views/PayCount'
 import OrderList from "./components/views/OrderList"
+import UserInfos from './components/views/UserInfos'
+import UpdatePwd from './components/views/UpdatePwd'
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -20,9 +21,6 @@ const App = createStackNavigator({
     },
     UserLogin:{
         screen:UserLogin
-    },
-    FindPwd:{
-        screen:FindPwd
     },
     Category:{
         screen:Category
@@ -47,8 +45,13 @@ const App = createStackNavigator({
     },
     OrderList:{
         screen:OrderList
+    },
+    UserInfos:{
+        screen:UserInfos
+    },
+    UpdatePwd:{
+        screen:UpdatePwd
     }
-
 },
   {
     headerMode: 'none',

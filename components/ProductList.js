@@ -15,7 +15,7 @@ constructor(props){
         keyword:'',
         orderBy:'',
         flag:true,
-        orederIndex:1
+        orderIndex:1
     }
 }
 componentDidMount(){
@@ -95,7 +95,7 @@ searchKeyword(text){
 handleOrder(index){
     this.refs.flatlist.scrollToIndex({viewPosition: 0, index: 0,animated: true});
     this.setState({
-        orederIndex:index,
+        orderIndex:index,
         pageNum:1
     })
     if(index===1){
@@ -136,7 +136,7 @@ refresh(){
         pageSize:8,
         keyword:'',
         orderBy:'',
-        orederIndex:1
+        orderIndex:1
     },()=>{
         this.handleSearch();
     })
@@ -160,9 +160,9 @@ function IsLoading(){
             <Text style={{fontSize:17,marginLeft:5}} onPress={()=>{this.handleSearch(1);}}>搜索</Text>
         </View>
         <View style={style.order}>
-        <Text style={this.state.orederIndex===1?style.active:{color:'black'}} onPress={()=>{this.handleOrder(1)}}>默认</Text>
-        <Text style={this.state.orederIndex===2?style.active:{color:'black'}} onPress={()=>{this.handleOrder(2)}}>价格</Text>
-        <Text style={this.state.orederIndex===3?style.active:{color:'black'}} onPress={()=>{this.handleOrder(3)}}>存货</Text>
+        <Text style={this.state.orderIndex===1?style.active:{color:'black'}} onPress={()=>{this.handleOrder(1)}}>默认</Text>
+        <Text style={this.state.orderIndex===2?style.active:{color:'black'}} onPress={()=>{this.handleOrder(2)}}>价格</Text>
+        <Text style={this.state.orderIndex===3?style.active:{color:'black'}} onPress={()=>{this.handleOrder(3)}}>存货</Text>
         </View>
             <FlatList
             ref='flatlist'

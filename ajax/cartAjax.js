@@ -12,7 +12,7 @@ update=(productId,count)=>{
     method: "POST",
     mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
     credentials: 'include',//允许存取cookie信息
-    // body:parameters//借口bug，无法通过body传输
+    // body:parameters//接口bug，偶尔会无法通过body传输
    }) 
 }
 deleteProduct=(productIds)=>{

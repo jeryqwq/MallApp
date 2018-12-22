@@ -34,7 +34,6 @@ export default class PayCount extends React.Component{
         AddressAjax.getDefaultAddress().then((res)=>{
             let resobj=eval("("+res._bodyInit+")");
             // console.error(resobj.data.id)
-
             if(resobj.status===0){
                 this.setState({
                     defaultAddress:resobj.data
@@ -108,15 +107,15 @@ export default class PayCount extends React.Component{
                     <Text style={{fontSize:16,color:'black'}}>合计:</Text>
                     <Text style={{color:'red',fontSize:14,marginRight:5}}>￥:{this.state.data.productTotalPrice}</Text>
                     <TouchableOpacity activeOpacity={0.5} onPress={()=>{
-                        // OrderAjax.create()
+                        OrderAjax.create(this.state.defaultAddress.id).then((res)=>{
+                            console.warn(res);
+                        })
                  }} >
                 <View style={{alignItems:"center",justifyContent:'center',width:width*0.25,height:40,backgroundColor:'#ff6100',borderRadius:20}}>
                 <Text style={{color:'white',fontSize:17}}>提交订单</Text>
                 </View>
                 </TouchableOpacity>
                 </View>
-
-           
             </View>
         )
     }

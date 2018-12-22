@@ -2,7 +2,7 @@ const UserMenuInfos = {
     mainTitle: "帐号设置",
     subInfos: [{
             title: '我的帐号信息',
-            path: ''
+            path: 'UserInfos'
         },
         {
             title: '密保设置',
@@ -10,7 +10,7 @@ const UserMenuInfos = {
         },
         {
             title: '修改密码',
-            path: ''
+            path: 'UpdatePwd'
         },
         {
             title: '我的收货地址',

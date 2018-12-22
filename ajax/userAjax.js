@@ -63,7 +63,7 @@ forgetCheckAnswer=(username,question,answer)=>{
       })
 }
 //验证通过重置密码；需要带上token，失效期两个小时
-resetPassword=(username,newPassword,token)=>{
+forgetResetPassword=(username,newPassword,token)=>{
   let parameters=new FormData();
   parameters.append("username",username);
   parameters.append("newPassword",newPassword);
@@ -91,16 +91,40 @@ updateInfo=(username,email,phone,question,answer)=>{
     body:parameters
   })
 }
+resetPassword=(newPassword,oldPassword)=>{
 
+  return fetch(apiFront+"/reset_password.do?newPassword="+newPassword+"&oldPassword="+oldPassword, {
+    method: "POST",
+    mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
+    credentials: 'include',//允许存取cookie信息
+  })
+}
 
+register=(username,password,email,phone,question,answer)=>{
+  let parameters=new FormData();
+  parameters.append("username",username);
+  parameters.append("password",password);
+  parameters.append("email",email);
+  parameters.append("phone",phone);
+  parameters.append("question",question);
+  parameters.append("answer",answer);
+  return fetch(apiFront+"register.do",{
+    method: "POST",
+    mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
+    credentials: 'include',//允许存取cookie信息
+    body:parameters
+  })
+}
 
 module.exports={
     userLogin,
     userLogout,
     updateInfo,
     forgetCheckAnswer,
-    resetPassword,
+    forgetResetPassword,
     forgetGetAnswer,
     getUserInfo,
-    checkValid
+    checkValid,
+    register,
+    resetPassword
 }
