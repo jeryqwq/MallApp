@@ -105,8 +105,7 @@ render(){
             <View >
                 <ImageBackground
              style={style.img}
-             source={{uri:item.replace("ftp://127.0.0.1/",config.imgAddressFront)}}
-                >
+             source={{uri:item.replace("ftp://127.0.0.1/",config.imgAddressFront)}}>
               <Text style={style.text}>{that.state.i+1}/{that.state.arrImg.length}</Text>
                 </ImageBackground>
             </View>
@@ -161,6 +160,7 @@ render(){
                 extraData={this.state}
                 data={this.state.arrImg}
                 renderItem={Swiper}
+                keyExtractor={(item,index)=>index}
                 onEndReachedThreshold={0.3}
                 horizontal={true}
                 showsHorizontalScrollIndicator={true}

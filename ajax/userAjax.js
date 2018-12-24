@@ -64,15 +64,11 @@ forgetCheckAnswer=(username,question,answer)=>{
 }
 //验证通过重置密码；需要带上token，失效期两个小时
 forgetResetPassword=(username,newPassword,token)=>{
-  let parameters=new FormData();
-  parameters.append("username",username);
-  parameters.append("newPassword",newPassword);
-  parameters.append("token",token);
-  return fetch(apiFront+"/reset_password.do", {
+
+  return fetch(apiFront+"/forget_reset_password.do?username="+username+"&newPassword="+newPassword+"&userToken="+token, {
     method: "POST",
     mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制
     credentials: 'include',//允许存取cookie信息
-    body:parameters
   })
 }
 
@@ -92,7 +88,6 @@ updateInfo=(username,email,phone,question,answer)=>{
   })
 }
 resetPassword=(newPassword,oldPassword)=>{
-
   return fetch(apiFront+"/reset_password.do?newPassword="+newPassword+"&oldPassword="+oldPassword, {
     method: "POST",
     mode : 'cors',//跨域限制，后台已经处理，rn本身没有跨域限制

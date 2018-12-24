@@ -12,6 +12,7 @@ import PayCount from './components/views/PayCount'
 import OrderList from "./components/views/OrderList"
 import UserInfos from './components/views/UserInfos'
 import UpdatePwd from './components/views/UpdatePwd'
+import AliPay from './components/views/AliPay'
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -51,6 +52,9 @@ const App = createStackNavigator({
     },
     UpdatePwd:{
         screen:UpdatePwd
+    },
+    AliPay:{
+       screen:AliPay
     }
 },
   {
@@ -58,6 +62,5 @@ const App = createStackNavigator({
     navigationOptions: {
       gesturesEnabled: false,
     },
-
 })
 export default App;

@@ -17,6 +17,7 @@ static getUserInfo(){
     return this._user;
 }
 static  userLogout(){
+    this._user={};
     this._user.isLogin=false;
 }
 }

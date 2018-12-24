@@ -21,22 +21,20 @@ export default class UpdatePwd extends React.Component{
             question:''
         }
     }
-    componentDidMount(){
-       
-    }
     isFindPwdType(){
      return   this.state.type==0?(
             <View style={style.contentWrap}>
                 <Text>请输入原始密码：</Text>
                 <TextInput 
-                autoComplete="password"
+                 secureTextEntry={true}
                 style={style.button}
                 onChangeText={(value)=>{
                  this.setState({oldPwd:value})
                 }}/>
                 <Text>请输入新密码：</Text>
                 <TextInput
-                autoComplete="password"
+                secureTextEntry={true}
+
                 style={style.button}
                 secureTextEntry={true}
                 onChangeText={(value)=>{
@@ -46,7 +44,11 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                  <Text>再次输入新密码：</Text>
                 <TextInput 
+<<<<<<< HEAD
                 secureTextEntry={true}
+=======
+                 secureTextEntry={true}
+>>>>>>> 34b621a3d14eedcab626745f920d13f17d9bced6
                  style={style.button}
                 onChangeText={(value)=>{
                   this.setState({reNewPwd:value},()=>{
@@ -59,10 +61,10 @@ export default class UpdatePwd extends React.Component{
                 onPress={()=>{
                     if(this.state.newPwd===this.state.reNewPwd){
                         userAjax.resetPassword(this.state.newPwd,this.state.oldPwd).then((res)=>{
-                            let resObj=eval("("+res+")");
-
-                            console.warn(resObj);
-
+                            let resObj=eval("("+res._bodyInit+")");
+                            if(resObj.status==0){
+                                ToastAndroid.show('修改成功',500)
+                            }
                         }).catch((err)=>{
 
                         })
@@ -122,9 +124,12 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                 <Text>请输入新密码:</Text>
                 <TextInput 
+<<<<<<< HEAD
                 secureTextEntry={true}
+=======
+                 secureTextEntry={true}
+>>>>>>> 34b621a3d14eedcab626745f920d13f17d9bced6
                  style={style.button}
-                autoComplete="password"
                 onChangeText={(value)=>{
                   this.setState({newPwd:value})
                 }}/>
@@ -134,12 +139,10 @@ export default class UpdatePwd extends React.Component{
                 title="确认修改"
                 onPress={()=>{
                     userAjax.forgetResetPassword(this.state.userName,this.state.newPwd,this.state.token).then((res)=>{
-                        console.error(res)
-
-                        const resObj=eval("("+res._bodyInit+")");
-                        if(resObj.status==0){
-
-                        }
+                        let resObj=eval("("+res._bodyInit+")");
+                            if(resObj.status==0){
+                                ToastAndroid.show('修改成功',500);
+                            }
                     })
                 }}/>
             </View>

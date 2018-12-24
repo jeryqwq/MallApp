@@ -4,26 +4,142 @@ import {
   View,
   Dimensions,
   Text,
-  ScrollView
+  ScrollView,
+  FlatList,
+  TextInput,
+  Image
 } from "react-native";
+import listAjax from './../ajax/productAjax';
+import emptyComponent from './contains/EmptyComonent'
+import categoryAjax from './../ajax/categoryAjax'
+import CategoryRenderItem from './contains/CategoryRenderItem'
+import isLoad from './contains/IsLoading'
 const {width,height} = Dimensions.get('window');
 
-export default class App extends Component {
+export default class CategoryList extends Component {
     constructor(props){
         super(props);
         this.state={
             opacity:1,
-            category:[1,2,34,5,6,7,76,889,9],
-            catIndex:-1
+            catIndex:-1,
+            curCateId:0,
+            loaded:false,
+            pageNum:1,
+            pageSize:8,
+            keyword:'',
+            orderBy:'',
+            flag:true,
+            orderIndex:1,
+            category:[],
+            data:[]
         }
+    }
+componentDidMount(){
+      this.catchData(0);
+      this.handleSearch(1);
+  }
+  refresh(){
+    this.setState({
+        data:[],
+        pageNum:1,
+        pageSize:8,
+        keyword:'',
+        orderBy:'',
+        orderIndex:1,
+        curCateId:0,
+        catIndex:-1
+    },()=>{
+        this.handleSearch();
+    })
+}
+  nextPage(){
+    //阻止加载，滑动底部调用事件频率太高
+        if(this.state.flag){
+            this.setState({
+                flag:false
+            })
+            this.setState({
+                pageNum:this.state.pageNum+1
+            },()=>{
+                this.handleSearch();
+            })
+         }else{
+             setTimeout(()=>{
+                this.setState({
+                    flag:true
+                })
+             },150)
+         }
+    }
+handleSearch(type){
+      //type ：1 查询
+      //type:2 排序
+      this.setState({
+          loaded:true
+      })
+      listAjax.productList(this.state.keyword,this.state.curCateId,this.state.pageNum,this.state.pageSize,this.state.orderBy).then((res) => {
+          let resobj=eval("("+res._bodyInit+")");
+          setTimeout(()=>{
+              this.setState({
+                  loaded:false
+              })
+             },800)
+          if(resobj.status===0){
+            if(type===1){
+             if(this.state.pageNum===1){
+              this.setState({
+                  data:resobj.data.list
+              })
+             }else{
+              this.setState({
+                  data:this.state.data.concat(resobj.data.list)
+              })
+             }
+            }
+            else if(type===2){
+              if(this.state.pageNum===1){
+                  this.setState({
+                      data:resobj.data.list
+                  })
+                 }else{
+                  this.setState({
+                      data:this.state.data.concat(resobj.data.list)
+                  })
+            }
+          }
+            else{
+              this.setState({
+                  data:this.state.data.concat(resobj.data.list)
+              })
+            }
+          }
+      }).catch((err) => {
+          
+      });
+  }
+  _keyExtractor = (item, index) => item.id;
+    catchData(id){
+      categoryAjax.getChildrenCategory(id).then((res) => {
+        let resobj=eval("("+res._bodyInit+")");
+        if(resobj.status==0){
+          this.setState({
+            category:resobj.data
+          })
+        }
+      }).catch((err) => {
+        
+      });
     }
     AllCategory(){
      return this.state.category?(
        this.state.category.map((item,index)=>(
-        <View style={index==this.state.catIndex?styles.ActiveCategory:styles.categoryItem}>
+        <View key={index} style={index==this.state.catIndex?styles.ActiveCategory:styles.categoryItem}>
         <Text onPress={()=>{
-          this.setState({catIndex:index})
-        }}>分类{item}</Text>
+          this.catchData(item.id)
+          this.setState({catIndex:index,curCateId:item.id,pageNum:1,data:[]},()=>{
+            this.handleSearch(2);
+          });
+        }}>{item.name}</Text>
       </View>
        ))
      ):(
@@ -31,9 +147,14 @@ export default class App extends Component {
      )
     }
   render() {
+    const that= this;
+    function IsLoading(){
+        return(
+            isLoad(that.state.loaded)
+        )
+    }
     return (
-        <View style={{flexDirection:'row'}}>
-
+        <View style={{flexDirection:"row",justifyContent:'space-around'}}>
       <ScrollView style={styles.container}
       onScroll = {(event)=>{{
         if(event.nativeEvent.contentOffset.y<=100){
@@ -42,13 +163,51 @@ export default class App extends Component {
       }}}
       >
         <View style={-1==this.state.catIndex?styles.ActiveCategory:styles.categoryItem}>
-        <Text onPress={()=>{this.setState({catIndex:-1})}}>全部分类</Text>
+        <Text onPress={()=>{
+          this.setState({catIndex:-1,curCateId:0,pageNum:1,data:[]},()=>{this.handleSearch(2)});this.catchData(0);
+          }}>全部分类</Text>
       </View>
      {this.AllCategory()}
         </ScrollView>
-        <ScrollView style={styles.containerRight}>
-          
-        </ScrollView>
+        <View style={{width:width*0.8,paddingBottom:90}}> 
+          <View style={{flexDirection:'row',position:'relative'}}>
+              <Image
+              style={{width:20,height:20,marginTop:10,marginLeft:5}}
+              source={require('./../imgs/搜索.png')}
+              />
+          <TextInput style={{height:40,position:'absolute',left:10}}
+          value={this.state.keyword}
+          onChangeText={(value)=>{
+            this.setState({
+                data:[],
+                keyword:value,
+                pageNum:1
+            },()=>{
+                this.handleSearch(1);
+            })
+          }}
+        
+        placeholder="指定分类关键字查询"
+        selectTextOnFocus ={true}
+        />
+          </View>
+        <FlatList
+            ref='cateFlatlist'
+            refreshing={this.state.loaded}
+            onRefresh={()=>{this.refresh()}}
+            ListEmptyComponent={emptyComponent("很抱歉，您的数据走丢拉")}
+            contentContainerStyle={style.flatlist}
+            data={this.state.data}
+            keyExtractor={this._keyExtractor}
+            renderItem={CategoryRenderItem}
+            onEndReachedThreshold={0.3}
+            onEndReached={()=>{setTimeout(()=>{
+                this.nextPage();
+            })}}
+            />  
+        </View>
+            <IsLoading/>
+ 
         </View>
 
     );
@@ -57,17 +216,16 @@ export default class App extends Component {
 
 let styles = StyleSheet.create({
   container: {
-    width:width*0.15,
-    height:height*0.2,
+    width:width*0.2,
+    height:height,
     backgroundColor:'#EDEDED',
+  },
+  flatlist:{
+    width:width*0.8,backgroundColor:'#EEECF4',flexDirection:"row",flexWrap:'wrap',alignItems:'center',justifyContent:"space-around"
+  },
 
-  },
-  containerRight:{
-    width:width*0.85,
-    height:height*0.92,
-    backgroundColor:'white',
-  },
-  categoryItem:{height:height*0.04,
+  categoryItem:{
+    height:height*0.04,
     flexDirection:'row',
     justifyContent:"center",
     alignItems:'center'
