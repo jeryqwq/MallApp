@@ -27,7 +27,6 @@ export default class OrderList extends React.Component{
                 self.setState({
                     data:resobj.data.list
                 },()=>{
-                    // console.error(this.state.data)
                 })
             }
         }).catch((err) => {
@@ -71,7 +70,7 @@ export default class OrderList extends React.Component{
                             </View>
                      {
                        item1.orderItemVoList.map((item,index)=>(
-                           <View>
+                           <View key={index}>
                         <View style={{flexDirection:'row',alignItems:"flex-start",justifyContent:'flex-start',margin:10}}>
                             <Image style={{width:width*0.3,height:width*0.3}} source={{uri:item.productImage.replace("ftp://127.0.0.1/",config.imgAddressFront)}}/>
                             <View style={{width:width*0.6,marginLeft:width*0.03}}>
@@ -144,7 +143,7 @@ export default class OrderList extends React.Component{
                 <View style={{flexDirection:"row",alignItems:"center",justifyContent:'space-around',height:height*0.05,backgroundColor:'white'}}>
                     <Text style={this.state.curIndex==0?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:0})}>全部</Text>
                     <Text style={this.state.curIndex==10?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:10})}>待付款</Text>
-                    <Text style={this.state.curIndex==30?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:30})}>待发货</Text>
+                    <Text style={this.state.curIndex==30?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:30})}>待收货</Text>
                     <Text style={this.state.curIndex==50?style.textcur:style.textnor} onPress={()=>this.setState({curIndex:50})}>待评价</Text>
                 </View>
                 <ScrollView style={{height:height*0.87}}>
