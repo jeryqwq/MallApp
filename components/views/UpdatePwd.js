@@ -38,6 +38,7 @@ export default class UpdatePwd extends React.Component{
                 <TextInput
                 autoComplete="password"
                 style={style.button}
+                secureTextEntry={true}
                 onChangeText={(value)=>{
                   this.setState({newPwd:value},()=>{
                     this.state.newPwd===this.state.reNewPwd?this.setState({tip:'密码一致'}):this.setState({tip:'两次输入不一致'})
@@ -45,6 +46,7 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                  <Text>再次输入新密码：</Text>
                 <TextInput 
+                secureTextEntry={true}
                  style={style.button}
                 onChangeText={(value)=>{
                   this.setState({reNewPwd:value},()=>{
@@ -120,6 +122,7 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                 <Text>请输入新密码:</Text>
                 <TextInput 
+                secureTextEntry={true}
                  style={style.button}
                 autoComplete="password"
                 onChangeText={(value)=>{

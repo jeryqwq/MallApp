@@ -2,7 +2,7 @@
 // networkHost="192.168.137.1"
 
 // 公司IP
-networkHost="192.168.4.153";
+networkHost="192.168.4.150";
 
 
 //后台笔记本局域网IP
