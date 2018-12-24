@@ -7,7 +7,8 @@ import {
   ScrollView,
   FlatList,
   TextInput,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 import listAjax from './../ajax/productAjax';
 import emptyComponent from './contains/EmptyComonent'
@@ -31,11 +32,23 @@ export default class CategoryList extends Component {
             flag:true,
             orderIndex:1,
             category:[],
-            data:[]
+            data:[],
+            subCategory:[]
         }
     }
 componentDidMount(){
-      this.catchData(0);
+    categoryAjax.getChildrenCategory(0).then((res) => {
+        let resobj=eval("("+res._bodyInit+")");
+        if(resobj.status==0){
+          this.setState({
+            category:resobj.data
+          },()=>{
+              this.state.category
+          })
+        }
+      }).catch((err) => {
+        
+      });
       this.handleSearch(1);
   }
   refresh(){
@@ -123,24 +136,47 @@ handleSearch(type){
         let resobj=eval("("+res._bodyInit+")");
         if(resobj.status==0){
           this.setState({
-            category:resobj.data
+            subCategory:resobj.data
           })
         }
       }).catch((err) => {
         
       });
     }
+    subCategory(){
+        return this.state.subCategory?(
+            this.state.subCategory.map((item,index)=>(
+                <TouchableOpacity 
+                key={index} style={styles.categoryItem}
+                onPress={()=>{
+                    this.catchData(item.id)
+                    this.setState({curCateId:item.id,pageNum:1,data:[]},()=>{
+                      this.handleSearch(2);
+                    });
+                  }}>
+                <View >
+                <Text >{item.name}</Text>
+              </View> 
+              </TouchableOpacity>
+            ))
+        ):(
+            <Text>无子项</Text>
+        )
+    }
     AllCategory(){
      return this.state.category?(
        this.state.category.map((item,index)=>(
+        <TouchableOpacity 
+        onPress={()=>{
+            this.catchData(item.id)
+            this.setState({catIndex:index,curCateId:item.id,pageNum:1,data:[]},()=>{
+              this.handleSearch(2);
+            });
+          }}>
         <View key={index} style={index==this.state.catIndex?styles.ActiveCategory:styles.categoryItem}>
-        <Text onPress={()=>{
-          this.catchData(item.id)
-          this.setState({catIndex:index,curCateId:item.id,pageNum:1,data:[]},()=>{
-            this.handleSearch(2);
-          });
-        }}>{item.name}</Text>
+        <Text >{item.name}</Text>
       </View>
+      </TouchableOpacity>
        ))
      ):(
        <Text>No Data</Text>
@@ -168,6 +204,10 @@ handleSearch(type){
           }}>全部分类</Text>
       </View>
      {this.AllCategory()}
+     <View  style={{height:height*0.04,flexDirection:'row',alignItems:"center",backgroundColor:'white'}}>
+        <Text >当前子分类:</Text>
+      </View>
+     {this.subCategory()}
         </ScrollView>
         <View style={{width:width*0.8,paddingBottom:90}}> 
           <View style={{flexDirection:'row',position:'relative'}}>

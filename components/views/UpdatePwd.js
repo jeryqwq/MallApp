@@ -44,11 +44,7 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                  <Text>再次输入新密码：</Text>
                 <TextInput 
-<<<<<<< HEAD
                 secureTextEntry={true}
-=======
-                 secureTextEntry={true}
->>>>>>> 34b621a3d14eedcab626745f920d13f17d9bced6
                  style={style.button}
                 onChangeText={(value)=>{
                   this.setState({reNewPwd:value},()=>{
@@ -124,11 +120,7 @@ export default class UpdatePwd extends React.Component{
                 }}/>
                 <Text>请输入新密码:</Text>
                 <TextInput 
-<<<<<<< HEAD
                 secureTextEntry={true}
-=======
-                 secureTextEntry={true}
->>>>>>> 34b621a3d14eedcab626745f920d13f17d9bced6
                  style={style.button}
                 onChangeText={(value)=>{
                   this.setState({newPwd:value})
