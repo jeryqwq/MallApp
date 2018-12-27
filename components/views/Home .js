@@ -21,8 +21,7 @@ class HomeScreen extends React.Component {
         if(resobj.status===0){
           userStore.setUserInfo(resobj.data);
           const { navigate } = this.props.navigation;
-          // ToastExampl.show("123",500);
-          navigate('Person')//自动登录获取信息后跳转页面，开发使用
+          navigate('PaySuccess')//自动登录获取信息后跳转页面，开发使用
         }else{
           userStore.userLogout();
         }

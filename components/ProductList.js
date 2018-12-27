@@ -1,5 +1,5 @@
 import React from "react"
-import {View,FlatList,Text,TextInput,StyleSheet,Dimensions,TouchableOpacity,Image,Button} from 'react-native'
+import {View,FlatList,Text,TextInput,StyleSheet,Dimensions,TouchableOpacity,Image,Button,ToastAndroid} from 'react-native'
 import listAjax from './../ajax/productAjax';
 import CateRenderItem from './contains/CategoryRenderItem'
 import isLoad from './contains/IsLoading'
@@ -162,7 +162,7 @@ function IsLoading(){
         CartAjax.addCart(id,1).then((res) => {
             const resobj=eval('('+res._bodyInit+")");
             if(resobj.status===0){
-                ToastExampl.show("加入购物车成功",500);
+                ToastAndroid.show("加入购物车成功",500);
             }
         })
     }

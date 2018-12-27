@@ -13,6 +13,7 @@ import OrderList from "./components/views/OrderList"
 import UserInfos from './components/views/UserInfos'
 import UpdatePwd from './components/views/UpdatePwd'
 import AliPay from './components/views/AliPay'
+import PaySuccess from './components/views/PaySuccess'
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -55,6 +56,9 @@ const App = createStackNavigator({
     },
     AliPay:{
        screen:AliPay
+    },
+    PaySuccess:{
+        screen:PaySuccess
     }
 },
   {

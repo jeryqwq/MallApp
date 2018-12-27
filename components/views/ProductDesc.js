@@ -22,6 +22,7 @@ constructor(props){
     }
 }
 componentDidMount(){
+    this.getComments();
     this.getProductDesc();
     Animated.timing(                  // 随时间变化而执行动画
         this.state.fadeAnim,            // 动画中的变量值
@@ -31,11 +32,20 @@ componentDidMount(){
         }
       ).start();   
 }
+getComments(){
+    ProductAjax.getComment(global.productId).then((res)=>{
+        
+        const resObj=eval("("+res._bodyInit+")");
+        console.error(resObj);
+    }).catch((err)=>{
+
+    })
+}
 componentWillUnmount(){
     clearInterval(this.state.interval);
 }
 getProductDesc(){
-    that=this;
+   let that=this;
     ProductAjax.getDetail(global.productId).then((result) => {
         let resobj=eval("("+result._bodyInit+")");
         if(resobj.status===0){
@@ -169,6 +179,11 @@ render(){
         />
         {productInfos(this.state.data)}
         <NumCount  num={this.state.num} maxNum={this.state.data.stock} changNum={(num)=>{this.changNumHandle(num)}} />
+        <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
+        <ScrollView style={{marginTop:15,marginLeft:15}}>
+            <Text>宝贝评论(15)</Text>
+            
+        </ScrollView>
         <View style={{height:this.state.height}}>
         <WebView
         originWhitelist={['*']}
@@ -234,7 +249,7 @@ backgroundColor:'rgba(0,0,0,0.5)',paddingLeft:10,paddingRight:10,borderRadius:5
 }
     })
     const BaseScript = `(function () {
-        document.getElementsByTagName('body')[0].style.zoom=0.6;
+        document.getElementsByTagName('body')[0].style.zoom=0.7;
         var height = null;
         function changeHeight() {
           if (document.body.scrollHeight != height) {

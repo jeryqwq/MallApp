@@ -1,5 +1,5 @@
 import React from "react";
-import {View,Text,StyleSheet,Dimensions,Image,TouchableOpacity,ScrollView} from "react-native"
+import {View,Text,StyleSheet,Dimensions,Image,TouchableOpacity,ScrollView,ToastAndroid} from "react-native"
 import Return from './../Return'
 import Navigation from "./../../store/navigation"
 import OrderAjax from './../../ajax/orderAjax'
@@ -33,7 +33,6 @@ export default class PayCount extends React.Component{
     getAddressData(){
         AddressAjax.getDefaultAddress().then((res)=>{
             let resobj=eval("("+res._bodyInit+")");
-            // console.error(resobj.data.id)
             if(resobj.status===0){
                 this.setState({
                     defaultAddress:resobj.data
@@ -44,7 +43,7 @@ export default class PayCount extends React.Component{
 
     }
     ProductInfos(){
-        if(this.state!==undefined){
+        if(this.state!==undefined&&this.state.data.orderItemVoList.length!==0){
         return (
             this.state.data.orderItemVoList.map((item,index)=>(
             <View key={index} style={{flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:'white'}}>
@@ -62,7 +61,7 @@ export default class PayCount extends React.Component{
                 )
             ))               
         }else{
-            return emptyComponent("未获取到任何数据")
+            return emptyComponent("您还没有添加商品到购物车内")
         }
     }
     AddressInfo=function(){
@@ -90,6 +89,8 @@ export default class PayCount extends React.Component{
             }}>></Text>
         </View>
         )
+      }else{
+        emptyComponent("未获取到任何数据");
       }
     }
     render(){
@@ -108,7 +109,13 @@ export default class PayCount extends React.Component{
                     <Text style={{color:'red',fontSize:14,marginRight:5}}>￥:{this.state.data.productTotalPrice}</Text>
                     <TouchableOpacity activeOpacity={0.5} onPress={()=>{
                         OrderAjax.create(this.state.defaultAddress.id).then((res)=>{
-                            console.warn(res);
+                            const resObj=eval('('+res._bodyInit+')');
+                            if(resObj.status==0){
+                                global.orderInfo=resObj.data;
+                                ToastAndroid.show('订单生成成功!!!',500);
+                                const {navigate} =Navigation.getNavigation();
+                                navigate("AliPay");
+                            }
                         })
                  }} >
                 <View style={{alignItems:"center",justifyContent:'center',width:width*0.25,height:40,backgroundColor:'#ff6100',borderRadius:20}}>

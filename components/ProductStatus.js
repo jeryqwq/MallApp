@@ -16,17 +16,25 @@ export default class ProductStatus extends React.Component{
         }
     }
     componentDidMount(){
+        let item0=0,item1=0,item2=0,item3=0;
             OrderAjax.list(1,50).then((res) => {
                 let resobj=eval("("+res._bodyInit+")");
                 if(resobj.status==0){
                     this.setState({
                         data:resobj.data.list
                     },()=>{
+
                         this.state.data.map((item,index)=>{
-                            if(item.status==10)this.setState({item0:this.state.item0+1});
-                            if(item.status==20)this.setState({item1:this.state.item1+1});
-                            if(item.status==30)this.setState({item2:this.state.item2+1});
-                            if(item.status==50)this.setState({item3:this.state.item3+1});
+                            if(item.status==10)item0++;
+                            if(item.status==20)item1++;
+                            if(item.status==30)item2++;
+                            if(item.status==50)item3++;
+                        })
+                        this.setState({
+                            item0:item0,
+                            item1:item1,
+                            item2:item2,
+                            item3:item3
                         })
                     })
                 }

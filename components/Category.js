@@ -228,6 +228,7 @@ handleSearch(type){
           }}
         
         placeholder="指定分类关键字查询"
+        placeholderTextColor='gray'
         selectTextOnFocus ={true}
         />
           </View>
@@ -235,7 +236,7 @@ handleSearch(type){
             ref='cateFlatlist'
             refreshing={this.state.loaded}
             onRefresh={()=>{this.refresh()}}
-            ListEmptyComponent={emptyComponent("很抱歉，您的数据走丢拉")}
+            ListEmptyComponent={emptyComponent("该分类下没有任何商品")}
             contentContainerStyle={style.flatlist}
             data={this.state.data}
             keyExtractor={this._keyExtractor}
@@ -258,7 +259,7 @@ let styles = StyleSheet.create({
   container: {
     width:width*0.2,
     height:height,
-    backgroundColor:'#EDEDED',
+    backgroundColor:'#F7F7F7',
   },
   flatlist:{
     width:width*0.8,backgroundColor:'#EEECF4',flexDirection:"row",flexWrap:'wrap',alignItems:'center',justifyContent:"space-around"

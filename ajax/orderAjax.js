@@ -1,6 +1,6 @@
 import config from "../config/uriconfig"
 const apiFront=config.apiAddressFront+'/order/';
-
+const manageApiFront=config.apiAddressFront+'/manage/order/';
 cancel=(orderNo)=>{
     let paramform=new FormData();
     paramform.append("orderNo",orderNo);
@@ -69,7 +69,14 @@ return fetch(apiFront+"list.do",{
     body:params
 })
 }
-
+//用户签收
+setShipped=(orderNo)=>{
+    return fetch(manageApiFront+'setShipped.do?orderNo='+orderNo,{
+        method:'POST',
+        mode:"cors",
+        credentials:'include'
+    })
+}
 module.exports={
     list,
     orderDetail,
@@ -77,5 +84,6 @@ module.exports={
     queryPayStatus,
     pay,
     create,
-    cancel
+    cancel,
+    setShipped
 }
