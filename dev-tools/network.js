@@ -1,4 +1,4 @@
-//此部分代码仅供node运行，react中无法运行，工作层面不一致
+//此部分代码仅供node运行,请勿在React中引入
 //获取局域网IP地址，切换网络后请重新获取IP地址，到uriconfig中修改当前最新的地址，否者可能琺使用API和图片服务
 var os=require('os'),
   iptable={},

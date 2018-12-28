@@ -124,7 +124,9 @@ export default class OrderList extends React.Component{
                     <TouchableOpacity
                     style={{width:width*0.15,height:30,borderRadius:15,borderStyle:"solid",borderWidth:1,borderColor:'orangered',alignItems:"center",justifyContent:"center",marginRight:20}}
                     onPress={()=>{
-                       
+                        global.orderInfo=item1;
+                        const {navigate} =Navigation.getNavigation();
+                        navigate("Comments");
                     }}
                     >
                         <Text style={{color:'orangered'}}>追加评价</Text>
@@ -136,7 +138,9 @@ export default class OrderList extends React.Component{
                  <TouchableOpacity
                  style={{width:width*0.15,height:30,borderRadius:15,borderStyle:"solid",borderWidth:1,borderColor:'orangered',alignItems:"center",justifyContent:"center",marginRight:20}}
                  onPress={()=>{
-                    
+                    global.orderInfo=item1;
+                    const {navigate} =Navigation.getNavigation();
+                    navigate("Comments");
                  }}
                  >
                      <Text style={{color:'orangered'}}>点击评价</Text>

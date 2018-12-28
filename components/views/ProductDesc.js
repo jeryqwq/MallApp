@@ -1,11 +1,10 @@
 import React from 'react';
 import {View,Text,FlatList,StyleSheet,Dimensions
-,ImageBackground,WebView,ScrollView,TouchableOpacity,Animated } from "react-native"
+,ImageBackground,WebView,ScrollView,TouchableOpacity,Animated,Image } from "react-native"
 import ProductAjax from './../../ajax/productAjax'
 import NumCount from './../NumCount'
 import config from './../../config/uriconfig'
 const {width,height} = Dimensions.get('window')
-
 export default class ProductDesc extends React.Component{
 constructor(props){
     super(props)
@@ -34,9 +33,13 @@ componentDidMount(){
 }
 getComments(){
     ProductAjax.getComment(global.productId).then((res)=>{
-        
+        console.error(res)
+
         const resObj=eval("("+res._bodyInit+")");
-        console.error(resObj);
+        if(resObj.status==0){
+            
+        }
+        //todo 评论渲染
     }).catch((err)=>{
 
     })
@@ -109,7 +112,6 @@ getProductDesc(){
     }
 render(){
     const that=this;
- 
     Swiper=function({item}){
         return(
             <View >
@@ -178,12 +180,41 @@ render(){
                 },100)}}
         />
         {productInfos(this.state.data)}
-        <NumCount  num={this.state.num} maxNum={this.state.data.stock} changNum={(num)=>{this.changNumHandle(num)}} />
+       <View style={{paddingBottom:10}}><NumCount  num={this.state.num} maxNum={this.state.data.stock} changNum={(num)=>{this.changNumHandle(num)}} /></View>
         <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
-        <ScrollView style={{marginTop:15,marginLeft:15}}>
+        <View style={{marginTop:15,marginLeft:15,paddingBottom:20}}>
             <Text>宝贝评论(15)</Text>
-            
-        </ScrollView>
+            <View>
+                <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
+                    <Text>用户:xxxxx</Text>
+                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    </View>
+                </View>
+                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
+                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
+{/* item */}
+                <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
+                    <Text>用户:xxxxx</Text>
+                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    </View>
+                </View>
+                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
+                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
+           {/* item */}
+           <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
+                    <Text>用户:xxxxx</Text>
+                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                    </View>
+                </View>
+                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
+                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
+           
+            </View>
+        </View>
+        <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
         <View style={{height:this.state.height}}>
         <WebView
         originWhitelist={['*']}
@@ -215,7 +246,7 @@ render(){
 }
 }
 let style=StyleSheet.create({
-    title:{color:'white',paddingLeft:10,paddingRight:10},
+    title:{color:'black',paddingLeft:10,paddingRight:10},
     actTitle:{color:'yellow',borderStyle:'solid',borderBottomColor:'yellow',borderBottomWidth:1,marginLeft:10,marginRight:10},
     titleView:{flexDirection:"row",height:height*0.04,width:width,justifyContent:"center",alignItems:'center'},
     fontBuy:{color:'white',fontSize:16},
