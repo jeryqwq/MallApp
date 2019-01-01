@@ -4,6 +4,7 @@ import {View,Text,FlatList,StyleSheet,Dimensions
 import ProductAjax from './../../ajax/productAjax'
 import NumCount from './../NumCount'
 import config from './../../config/uriconfig'
+
 const {width,height} = Dimensions.get('window')
 export default class ProductDesc extends React.Component{
 constructor(props){
@@ -18,10 +19,11 @@ constructor(props){
         curIndexTitle:1,
         opactiy:0,
         fadeAnim: new Animated.Value(0),
+        comments:[]
     }
 }
 componentDidMount(){
-    this.getComments();
+    this.getComments();//初始化数据渲染
     this.getProductDesc();
     Animated.timing(                  // 随时间变化而执行动画
         this.state.fadeAnim,            // 动画中的变量值
@@ -33,15 +35,12 @@ componentDidMount(){
 }
 getComments(){
     ProductAjax.getComment(global.productId).then((res)=>{
-        console.error(res)
-
         const resObj=eval("("+res._bodyInit+")");
         if(resObj.status==0){
-            
+            this.setState({
+                comments:resObj.data
+            })
         }
-        //todo 评论渲染
-    }).catch((err)=>{
-
     })
 }
 componentWillUnmount(){
@@ -101,7 +100,7 @@ getProductDesc(){
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 600, animated: true});this.setState({curIndexTitle:2})}} style={that.state.curIndexTitle===2?style.actTitle:style.title}>评论</Text>
                     <Text onPress={()=>{that.refs.scroll.scrollTo({x: 0, y: 1200, animated: true});this.setState({curIndexTitle:3})}} style={that.state.curIndexTitle===3?style.actTitle:style.title}>详情</Text>
                 </View>
-            </Animated.View  >
+            </Animated.View>
             )
         }else{
 
@@ -114,7 +113,7 @@ render(){
     const that=this;
     Swiper=function({item}){
         return(
-            <View >
+            <View>
                 <ImageBackground
              style={style.img}
              source={{uri:item.replace("ftp://127.0.0.1/",config.imgAddressFront)}}>
@@ -123,11 +122,28 @@ render(){
             </View>
         )  
     }
+    startsRender=function(cStarts){
+        let arrs=[];
+        for(let i=0;i<cStarts;i++){
+            arrs.push(i);
+        }
+       return(
+        <View style={{flexDirection:"row",marginLeft:30,paddingBottom:5}}>
+            {
+                arrs.map(((item,index) => (
+                    <Image kye={index} style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+                ))
+                )
+            }
+        </View>
+       )
+      
+    }
     productInfos=function(data){
         return(
         <View style={{width:'94%',marginLeft:'3%',marginTop:10}}>
         <View style={{flexDirection:'row',alignItems:'flex-end'}}><Text style={{fontSize:18,color:'red'}}>￥</Text>
-        <Text style={{color:'red',fontSize:22}}>{data.price}</Text></View>                
+        <Text style={{color:'red',fontSize:22}}>{data.price}</Text></View>
         <Text style={{color:'black',fontSize:18}}>{data.name}</Text>
                 <Text style={{color:'black',fontSize:13,marginTop:5}}>{data.subtitle}</Text>
                 <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:15,paddingBottom:10}}>
@@ -183,36 +199,22 @@ render(){
        <View style={{paddingBottom:10}}><NumCount  num={this.state.num} maxNum={this.state.data.stock} changNum={(num)=>{this.changNumHandle(num)}} /></View>
         <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
         <View style={{marginTop:15,marginLeft:15,paddingBottom:20}}>
-            <Text>宝贝评论(15)</Text>
-            <View>
-                <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
-                    <Text>用户:xxxxx</Text>
-                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
+            <Text>宝贝评论{this.state.comments?this.state.comments.length:'0'}</Text>
+            {
+                this.state.comments?this.state.comments.length!=0?this.state.comments.map((item,index)=>(
+                    <View key={index} style={{margin:10,borderStyle:'solid',borderBottomWidth:1,borderBottomColor:'#f5f5f5'}}>
+                    <View style={{flexDirection:"row",justifyContent:"flex-start"}}>
+                        <Text>用户:{item.username}</Text>
+                        {startsRender(item.cStarts)}
+                        {/* RenderStarts */}
                     </View>
+                    <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:{item.cTime}</Text></View>
+                    <Text style={{marginTop:8,fontSize:15,paddingBottom:10}}>{"    ".toString()}{item.cContent}</Text>
                 </View>
-                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
-                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
-{/* item */}
-                <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
-                    <Text>用户:xxxxx</Text>
-                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                    </View>
-                </View>
-                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
-                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
-           {/* item */}
-           <View style={{flexDirection:"row",justifyContent:"flex-start",marginTop:5}}>
-                    <Text>用户:xxxxx</Text>
-                    <View style={{flexDirection:"row",marginLeft:30}}><Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                    <Image style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                    </View>
-                </View>
-                <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:2016-09-08    数量*5</Text></View>
-                <Text style={{marginTop:8,fontSize:15}}>{"      ".toString()}啊实打实地方按时发生大大拔刀vfjka回复的杰卡斯黄金卡是道具卡圣诞节喀什都看见好看等哈就肯定会就开始道具卡还是</Text>
-           
-            </View>
+                )):<Text style={{color:'red'}}>该商品暂无评论</Text>:undefined
+                  
+            }
+         
         </View>
         <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
         <View style={{height:this.state.height}}>
@@ -227,7 +229,7 @@ render(){
         scrollEnabled={false}
         onMessage={this.onMessage.bind(this)}
         />
-        </View>
+            </View>
         </ScrollView>
         <View style={{height:height*0.05,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',backgroundColor:'#F0FFFF'}}>
         <TouchableOpacity  activeOpacity={0.5} >

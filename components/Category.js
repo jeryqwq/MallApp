@@ -167,6 +167,7 @@ handleSearch(type){
      return this.state.category?(
        this.state.category.map((item,index)=>(
         <TouchableOpacity 
+        key={index}
         onPress={()=>{
             this.catchData(item.id)
             this.setState({catIndex:index,curCateId:item.id,pageNum:1,data:[]},()=>{
