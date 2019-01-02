@@ -1,5 +1,5 @@
 //宿舍电脑局域网
-// networkHost="192.168.137.1"
+networkHost="192.168.137.1"
 
 // 公司IP
 networkHost="192.168.4.150";

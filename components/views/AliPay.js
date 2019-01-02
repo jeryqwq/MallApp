@@ -14,7 +14,6 @@ export default class AliPay extends React.Component{
             isPayed:false,
             checkTimer:null
         }
-        
     }
     componentDidMount(){
         this.pay();
