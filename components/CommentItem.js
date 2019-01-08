@@ -18,12 +18,13 @@ export default class CommentItem extends React.Component{
         }
     }
     comment(productId){
-        this.state.content!=''?productAjax.comment(this.state.content,this.state.startNum,productId,0).then((res)=>{
+        this.state.content!=''?productAjax.comment(this.state.content,this.state.startNum,productId,0,this.props.commentItem.orderNo).then((res)=>{
             const resObj=eval("("+res._bodyInit+")");
             if(resObj.status==1){
                 this.setState({
                         content:''
                 })
+                ToastAndroid.show("评论成功！",500)
             }
         }):ToastAndroid.show('请输入评论内容',500)
       }

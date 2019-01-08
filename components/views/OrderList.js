@@ -18,7 +18,6 @@ export default class OrderList extends React.Component{
         }
     }
     componentDidMount(){
-
    this.getData();
     }
     getData(){

@@ -18,7 +18,7 @@ render(){
         <View>
             <View style={{height:height*0.2,backgroundColor:'#ff6100'}}>
             <View style={{flexDirection:'row',marginLeft:30,marginTop:30}}>
-                <Image 
+                <Image
                 style={{width:80,height:80,borderRadius:40}}
                 source={{uri:"http://gw.alicdn.com/sns_logo/i2/2220876650/TB2li_XlFXXXXXBXXXXXXXXXXXX_!!0-mytaobao.jpg_.webp"}}
                 />
