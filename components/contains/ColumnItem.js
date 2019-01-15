@@ -51,7 +51,7 @@ style=StyleSheet.create({
         marginTop:10,
         backgroundColor:'white',
         borderRadius:10,
-        position:'relative'
+        position:'relative',
     },
     btom:{marginTop:10,width:'100%',flexDirection:"row",justifyContent:'space-between'}
 })

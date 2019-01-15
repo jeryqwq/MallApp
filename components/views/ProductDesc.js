@@ -4,7 +4,8 @@ import {View,Text,FlatList,StyleSheet,Dimensions
 import ProductAjax from './../../ajax/productAjax'
 import NumCount from './../NumCount'
 import config from './../../config/uriconfig'
-
+import Navigation from './../../store/navigation'
+import startsRender from './../contains/StartsComment'
 const {width,height} = Dimensions.get('window')
 export default class ProductDesc extends React.Component{
 constructor(props){
@@ -122,23 +123,7 @@ render(){
             </View>
         )  
     }
-    startsRender=function(cStarts){
-        let arrs=[];
-        for(let i=0;i<cStarts;i++){
-            arrs.push(i);
-        }
-       return(
-        <View style={{flexDirection:"row",marginLeft:30,paddingBottom:5}}>
-            {
-                arrs.map(((item,index) => (
-                    <Image kye={index} style={{width:20,height:20}} source={require("./../../imgs/星.png")}/>
-                ))
-                )
-            }
-        </View>
-       )
-      
-    }
+
     productInfos=function(data){
         return(
         <View style={{width:'94%',marginLeft:'3%',marginTop:10}}>
@@ -199,7 +184,18 @@ render(){
        <View style={{paddingBottom:10}}><NumCount  num={this.state.num} maxNum={this.state.data.stock} changNum={(num)=>{this.changNumHandle(num)}} /></View>
         <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
         <View style={{marginTop:15,marginLeft:15,paddingBottom:20}}>
+        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text>宝贝评论{this.state.comments?this.state.comments.length:'0'}</Text>
+         {
+             this.state.comments.length!=0?<Text  style={{marginRight:20,color:'orangered'}}
+             onPress={()=>{
+                 const {navigate}=Navigation.getNavigation();
+                 navigate("AllComments");
+             }}
+             >查看全部{'   >'.toString()}</Text>:null
+         }
+        </View>
+           
             {
                 this.state.comments?this.state.comments.length!=0?this.state.comments.map((item,index)=>(
                     <View key={index} style={{margin:10,borderStyle:'solid',borderBottomWidth:1,borderBottomColor:'#f5f5f5'}}>

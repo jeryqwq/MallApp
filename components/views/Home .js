@@ -1,10 +1,10 @@
 import React from 'react';
 import { View} from "react-native";
-import NavFooter from './../NavFooter'
-import ProductList from "./../ProductList";
-import Navigation from './../../store/navigation'
-import userAjax from './../../ajax/userAjax'
-import userStore from './../../store/userStore'
+import NavFooter from '../NavFooter'
+import ProductList from "../ProductList";
+import Navigation from '../../store/navigation'
+import userAjax from '../../ajax/userAjax'
+import userStore from '../../store/userStore'
 class HomeScreen extends React.Component {
  
     handle=()=>{

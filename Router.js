@@ -15,6 +15,7 @@ import UpdatePwd from './components/views/UpdatePwd'
 import AliPay from './components/views/AliPay'
 import PaySuccess from './components/views/PaySuccess'
 import Comments from './components/views/Comment'
+import AllComments from './components/views/Comments'
 const App = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -63,6 +64,9 @@ const App = createStackNavigator({
     },
     Comments:{
         screen:Comments
+    },
+    AllComments:{
+        screen:AllComments
     }
 },
   {

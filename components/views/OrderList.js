@@ -18,7 +18,7 @@ export default class OrderList extends React.Component{
         }
     }
     componentDidMount(){
-   this.getData();
+    this.getData();
     }
     getData(){
         const self=this;
