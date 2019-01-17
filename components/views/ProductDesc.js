@@ -20,7 +20,10 @@ constructor(props){
         curIndexTitle:1,
         opactiy:0,
         fadeAnim: new Animated.Value(0),
-        comments:[]
+        comments:[],
+        pageSize:5,
+        pageNum:1,
+        length:0
     }
 }
 componentDidMount(){
@@ -35,11 +38,13 @@ componentDidMount(){
       ).start();   
 }
 getComments(){
-    ProductAjax.getComment(global.productId).then((res)=>{
+    ProductAjax.getComment(global.productId,this.state.pageNum,this.state.pageSize).then((res)=>{
         const resObj=eval("("+res._bodyInit+")");
+        console.error(resObj)
         if(resObj.status==0){
             this.setState({
-                comments:resObj.data
+                comments:resObj.data.list,
+                length:resObj.data.total
             })
         }
     })
@@ -185,7 +190,7 @@ render(){
         <View style={{height:10,backgroundColor:'#F7F7F7'}}></View>
         <View style={{marginTop:15,marginLeft:15,paddingBottom:20}}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-            <Text>宝贝评论{this.state.comments?this.state.comments.length:'0'}</Text>
+            <Text>宝贝评论({this.state.length})</Text>
          {
              this.state.comments.length!=0?<Text  style={{marginRight:20,color:'orangered'}}
              onPress={()=>{
