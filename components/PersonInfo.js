@@ -38,7 +38,6 @@ render(){
                     if(resobj.status==0){
                         resobj.status==0?ToastAndroid.show("退出成功!",500):undefined;
                         Store.userLogout();
-                        
                     }
                 }).catch((err) => {
                     

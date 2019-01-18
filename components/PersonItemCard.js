@@ -2,19 +2,28 @@ import React from 'react';
 import {View,Text,Dimensions,StyleSheet,TouchableOpacity} from 'react-native';
 const {width,height} = Dimensions.get('window')
 import Navigation from './../store/navigation';
+import ShowInfo from './contains/ShowInfo'
 export default class PersonItemCard extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            isShow:false
+        }
     }
     routerLink(path){
-        const {navigate} =Navigation.getNavigation();
-        navigate(path);
+        if(path!=""){
+            const {navigate} =Navigation.getNavigation();
+            navigate(path);
+        }else{
+            this.setState({
+                isShow:true
+            })
+        }
     }
 
     render(){
         const that=this;
         const subInfos=this.props.cardInfos.subInfos;
-        
         function SubCards(){
                    return subInfos.map((item,index)=>
                    <TouchableOpacity  key={index} activeOpacity={0.5} onPress={()=>{that.routerLink(item.path)}}>
@@ -22,9 +31,9 @@ export default class PersonItemCard extends React.Component{
                             <Text >{item.title}</Text>
                             <Text style={{fontSize:25,color:'#d7d7d7'}}>></Text>
                         </View>
+                        {/* <ShowInfo  isShow={that.state.isShow}  titel={this.props.cardInfos.alertTitle} subTitle={this.props.cardInfos.alertSubTitle}/> */}
                     </TouchableOpacity>
-
-                    )               
+                    )
             }
         return(
                 <View style={style.wrap}>

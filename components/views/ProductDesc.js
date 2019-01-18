@@ -40,7 +40,6 @@ componentDidMount(){
 getComments(){
     ProductAjax.getComment(global.productId,this.state.pageNum,this.state.pageSize).then((res)=>{
         const resObj=eval("("+res._bodyInit+")");
-        console.error(resObj)
         if(resObj.status==0){
             this.setState({
                 comments:resObj.data.list,
@@ -206,8 +205,7 @@ render(){
                     <View key={index} style={{margin:10,borderStyle:'solid',borderBottomWidth:1,borderBottomColor:'#f5f5f5'}}>
                     <View style={{flexDirection:"row",justifyContent:"flex-start"}}>
                         <Text>用户:{item.username}</Text>
-                        {startsRender(item.cStarts)}
-                        {/* RenderStarts */}
+                        {startsRender(item.cStarts+1)}
                     </View>
                     <View><Text style={{color:"gray",fontSize:12,marginTop:5}}>日期:{item.cTime}</Text></View>
                     <Text style={{marginTop:8,fontSize:15,paddingBottom:10}}>{"    ".toString()}{item.cContent}</Text>

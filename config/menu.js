@@ -22,10 +22,17 @@ const AppInfoMenu = {
     mainTitle: '关于',
     subInfos: [{
         title: '关于MallAPP',
-        path: ''
+        path: '',
+        alertTitle:"MallApp",
+        alertSubTitle:[
+            "1.基于React-Native开发",
+            "2.仅用于学习参考,布局方面参考手淘页面",
+            "3.github地址：https://github.com/jeryqwq/MallApp",
+            "4.fork后代码支付功能请参照支付宝官方文档注册并获取密钥测试https://openhome.alipay.com/platform/appDaily.htm"
+        ]
     }, {
         title: '版本信息',
-        path: ''
+        path: '',
     }]
 }
 module.exports = {
