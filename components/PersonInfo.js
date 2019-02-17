@@ -4,6 +4,7 @@ import ProductStatus from './ProductStatus'
 import Store from './../store/userStore'
 import PersonItemCard from './PersonItemCard';
 import {UserMenuInfos,AppInfoMenu} from './../config/menu'
+import ShowInfo from './contains/ShowInfo'
 const {width,height} = Dimensions.get('window')
 import userAjax from './../ajax/userAjax'
 export default class PersonInfo extends React.Component{

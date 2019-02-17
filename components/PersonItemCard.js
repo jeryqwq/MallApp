@@ -1,8 +1,8 @@
 import React from 'react';
 import {View,Text,Dimensions,StyleSheet,TouchableOpacity} from 'react-native';
-const {width,height} = Dimensions.get('window')
+const {width,height} = Dimensions.get('window');
 import Navigation from './../store/navigation';
-import ShowInfo from './contains/ShowInfo'
+import ShowInfo from './contains/ShowInfo';
 export default class PersonItemCard extends React.Component{
     constructor(props){
         super(props);
