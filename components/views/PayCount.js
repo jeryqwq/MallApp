@@ -79,7 +79,7 @@ export default class PayCount extends React.Component{
                     <Text style={{color:"gray",marginLeft:20}}>{this.state.defaultAddress.receiverPhone}</Text>
                 </View>
                 <View style={style.line2}>
-                <Text style={{lineHeight:18,width:width*0.69}}><Text style={style.inlineText}>默认地址</Text>{this.state.defaultAddress.receiverAddress}</Text>
+                <Text style={{lineHeight:18,width:width*0.69}}><Text style={style.inlineText}>选择默认地址</Text>{this.state.defaultAddress.receiverAddress}</Text>
                 <Text style={style.inlineText}>(此收获地址为默认地址，如需更换请点击右侧图标)</Text>
                 </View>
             </View>

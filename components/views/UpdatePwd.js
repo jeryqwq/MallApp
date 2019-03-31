@@ -4,7 +4,6 @@ import Return  from './../Return'
 import userAjax from './../../ajax/userAjax'
 
 const {width,height} = Dimensions.get('window')
-
 export default class UpdatePwd extends React.Component{
     constructor(props){
         super(props);
@@ -34,9 +33,7 @@ export default class UpdatePwd extends React.Component{
                 <Text>请输入新密码：</Text>
                 <TextInput
                 secureTextEntry={true}
-
                 style={style.button}
-                secureTextEntry={true}
                 onChangeText={(value)=>{
                   this.setState({newPwd:value},()=>{
                     this.state.newPwd===this.state.reNewPwd?this.setState({tip:'密码一致'}):this.setState({tip:'两次输入不一致'})
@@ -55,6 +52,7 @@ export default class UpdatePwd extends React.Component{
                 <Button title="确定"
                 disabled={this.state.newPwd==''||this.state.oldPwd==''||this.state.reNewPwd==''}
                 onPress={()=>{
+                    console.warn(this.state.newPwd,this.state.oldPwd);
                     if(this.state.newPwd===this.state.reNewPwd){
                         userAjax.resetPassword(this.state.newPwd,this.state.oldPwd).then((res)=>{
                             let resObj=eval("("+res._bodyInit+")");

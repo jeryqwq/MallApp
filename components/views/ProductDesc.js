@@ -237,9 +237,7 @@ render(){
         </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.5} >
-        <View style={style.radisbtnRight}>
-        <Text style={style.fontBuy} >立即购买</Text>
-        </View>
+       
         </TouchableOpacity>
         </View>
         </View>
